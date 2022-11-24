@@ -8,6 +8,14 @@ export const initialFormUserAdd = {
    tipoUsuario: "",
    id: null,
 };
+export const dataFormUserAdd = {
+   nombre: "",
+   usuario: "",
+   contrasena: "",
+   Confirmar_contrasena: "",
+   tipoUsuario: "",
+   id: null,
+};
 export const labelFormUserAdd = {
    'Nombre': "Escribe el nombre",
    'Usuario': "Escribe el usuario",
@@ -141,7 +149,7 @@ export const dataFormAlumnoAdd = {
    telefono: "",
    correo: "",
    genero: "",
-   idAlumno: "",
+   idAlumno: null,
 };
 
 export const labelFormAlumnoAdd = {

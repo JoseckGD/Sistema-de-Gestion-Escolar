@@ -58,4 +58,23 @@ module.exports = {
             })
          })
    },
+
+   insertarPeriodos: (req, res) => {
+      console.log(req.body);
+      _model_periodos.methods.insertarPeriodos(req.body)
+         .then(rows => {
+            res.send({
+               success: true,
+               message: 'El periodo ha sido registrado exitosamente'
+            })
+         })
+         .catch(err => {
+            res.send({
+               success: false,
+               message: 'Error al Registrar al periodo',
+               result: err
+            })
+         })
+
+   },
 }

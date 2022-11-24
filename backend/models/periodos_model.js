@@ -40,7 +40,7 @@ module.exports = {
       });
     },
 
-    insertPeriodo: function (data) {
+    insertarPeriodos: function (data) {
       return new Promise((resolve, reject) => {
         con.query(`INSERT INTO periodos (periodo, fechaInicio, fechaTermino) VALUES ( '${data.periodo}', '${data.fechaInicio}', '${data.fechaTermino}')`, (err, rows) => {
           callback(err, rows, resolve, reject)

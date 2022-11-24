@@ -13,7 +13,9 @@ import { Card, Row, Text, Tooltip, Button } from "@nextui-org/react";
 import { Table } from "../components/table/Table";
 import { MyModal } from "../components/Modal";
 import { useTitle } from "../hooks/useTitle";
-import { dataFormAlumnoAdd, dataFormDocenteAdd } from "../data/DataFormsModal";
+import { dataFormAlumnoAdd, dataFormDocenteAdd, dataFormUserAdd } from "../data/DataFormsModal";
+
+let rol = '';
 
 export const HomeAdminPage = () => {
    const [user, setUser] = useState('Usuarios');
@@ -80,8 +82,8 @@ export const HomeAdminPage = () => {
    }, [allMaterias])
 
    const handleOpenModal = (tipo, title, data) => {
-      console.log(data);
-      console.log(`tipo= ${tipo}, tittlr= ${title},  \ndata: ${data}`);
+      // console.log('data: ', data);
+      // console.log(`tipo= ${tipo}, tittlr= ${title},  \ndata: ${data}`);
       if (data !== null) {
          setDataToEdit(data);
       } else {
@@ -105,17 +107,87 @@ export const HomeAdminPage = () => {
    }
 
    const handleAdd = (data) => {
-      console.log(data);
-      console.log(`Agregar un registro en ${user}`, data);
-      if (user === 'Usuarios') {
-         handleOpenModal('Agregar', `${data.tipoUsuario.toLowerCase()}s`, (data.tipoUsuario === 'Alumno' ? { ...dataFormAlumnoAdd, 'nombreCompleto': `${data.nombre}` } : { ...dataFormDocenteAdd, 'nombreCompleto': `${data.nombre}` }))
-         // createData(user, data);
-         // console.log(data.tipoUsuario);
-      } else {
-         // createData(user, data);
-         setDataToEdit(null);
-         handleClose();
+      // console.log(data);
+      // console.log(`Agregar un registro en ${user}`, data);
+      switch (user) {
+         case 'Usuarios':
+            if (Object.prototype.hasOwnProperty.call(data, 'idAlumno') || Object.prototype.hasOwnProperty.call(data, 'idDocente')) {
+               console.log(`${rol}s agregado`);
+               createData(`${rol}s`, data);
+               handleClose();
+
+            } else {
+               if (data && Object.prototype.hasOwnProperty.call(data, 'tipoUsuario')) {
+                  rol = data.tipoUsuario.toLowerCase();
+               }
+               // console.log('agregar un alumno');
+               // console.log('rol: ', rol);
+               handleOpenModal('Agregar', `${rol}s`, (data.tipoUsuario === 'Alumno' ? { ...dataFormAlumnoAdd, 'nombreCompleto': `${data.nombre}` } : { ...dataFormDocenteAdd, 'nombreCompleto': `${data.nombre}` }))
+               createData(user, data);
+            }
+            break;
+
+         case 'Docentes':
+            createData('Usuarios', ({
+               ...dataFormUserAdd,
+               'nombre': `${data.nombreCompleto}`,
+               'usuario': `${data.nombreCompleto}`,
+               'contrasena': `${data.nombreCompleto}`,
+               'tipoUsuario': `Docente`,
+               'id': null
+            }))
+            createData(user, data);
+            handleClose();
+            break;
+
+         case 'Alumnos':
+            createData('Usuarios', ({
+               ...dataFormUserAdd,
+               'nombre': `${data.nombreCompleto}`,
+               'usuario': `${data.nombreCompleto}`,
+               'contrasena': `${data.nombreCompleto}`,
+               'tipoUsuario': `Alumno`,
+               'id': null
+            }))
+            createData(user, data);
+            handleClose();
+            break;
+
+         case 'Periodos':
+            createData(user, data);
+            handleClose();
+            break;
+
+         case 'Materias':
+
+            break;
+
+         default:
+            break;
       }
+      // if (user === 'Usuarios') {
+      //    if (Object.prototype.hasOwnProperty.call(data, 'idAlumno') || Object.prototype.hasOwnProperty.call(data, 'idDocente')) {
+      //       console.log(`${rol}s agregado`);
+      //       createData(`${rol}s`, data);
+      //       handleClose();
+
+      //    } else {
+      //       if (data && Object.prototype.hasOwnProperty.call(data, 'tipoUsuario')) {
+      //          rol = data.tipoUsuario.toLowerCase();
+      //       }
+      //       // console.log('agregar un alumno');
+      //       // console.log('rol: ', rol);
+      //       handleOpenModal('Agregar', `${rol}s`, (data.tipoUsuario === 'Alumno' ? { ...dataFormAlumnoAdd, 'nombreCompleto': `${data.nombre}` } : { ...dataFormDocenteAdd, 'nombreCompleto': `${data.nombre}` }))
+      //       createData(user, data);
+      //    }
+      //    // handleOpenModal('Agregar', `${data.tipoUsuario.toLowerCase()}s`, (data.tipoUsuario === 'Alumno' ? { ...dataFormAlumnoAdd, 'nombreCompleto': `${data.nombre}` } : { ...dataFormDocenteAdd, 'nombreCompleto': `${data.nombre}` }))
+      //    // createData(user, data);
+      //    // console.log(data.tipoUsuario);
+      // } else {
+      // createData(user, data);
+      // setDataToEdit(null);
+      // handleClose();
+      // }
    }
 
    const handleClose = () => {

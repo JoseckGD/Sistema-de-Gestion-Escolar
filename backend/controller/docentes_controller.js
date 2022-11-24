@@ -59,4 +59,22 @@ module.exports = {
             })
          })
    },
+   insertarDocentes: (req, res) => {
+      console.log(req.body);
+      _model_docentes.methods.insertarDocente(req.body)
+         .then(rows => {
+            res.send({
+               success: true,
+               message: 'El docente ha sido registrado exitosamente'
+            })
+         })
+         .catch(err => {
+            res.send({
+               success: false,
+               message: 'Error al Registrar al docente',
+               result: err
+            })
+         })
+
+   },
 }

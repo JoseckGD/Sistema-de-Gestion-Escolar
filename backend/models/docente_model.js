@@ -50,9 +50,9 @@ module.exports = {
          });
       },
 
-      insertDocente: function (data) {
+      insertarDocente: function (data) {
          return new Promise((resolve, reject) => {
-            con.query(`INSERT INTO docentes (idDocente, nombre) VALUES ( '${data.docente}', '${data.nombre}')`, (err, rows) => {
+            con.query(`INSERT INTO docentes (nombreCompleto, telefono, correo) VALUES ( '${data.nombreCompleto}', '${data.telefono}', '${data.correo}')`, (err, rows) => {
                callback(err, rows, resolve, reject)
             })
          })

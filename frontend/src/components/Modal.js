@@ -18,17 +18,9 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
       });
    };
 
-   useEffect(() => {
-      setForm(null);
-   }, [handleClose])
-
-   useEffect(() => {
-      if (tipo === 'Modificar') {
-         setForm(data)
-      } else {
-         setForm(getInitialForm())
-      }
-   }, [visibleModal])
+   // useEffect(() => {
+   //    setForm(null);
+   // }, [handleClose])
 
    //Obtener los valores de los label para los formularios
    const getLabel = () => {
@@ -87,6 +79,27 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
    // ));
 
    const [form, setForm] = useState(getInitialForm());
+
+   useEffect(() => {
+      if (tipo === 'Agregar' && data) {
+         setForm(data)
+      } else {
+         setForm(null);
+      }
+   }, [data])
+
+
+   useEffect(() => {
+      if (tipo === 'Modificar') {
+         setForm(data)
+      } else {
+         if (tipo === 'Agregar') {
+            setForm(data)
+         } else {
+            setForm(getInitialForm())
+         }
+      }
+   }, [visibleModal])
 
    return (
       <div>
@@ -182,10 +195,10 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                            <Input
                               type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : 'text'}
                               label={Object.keys(getLabel())[index]}
-                              initialValue={data !== null && Object.values(data)[index]}
+                              // initialValue={form !== null && Object.values(form)[index]}
                               // label={Object.keys(labelFormUserAdd)[index]}
                               name={campo}
-                              // value={Object.values(form)[index] || ''}
+                              value={data !== null && Object.values(data)[index]}
                               onChange={(e) => handleChange(e)}
                               key={index}
                               clearable

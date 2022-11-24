@@ -4,14 +4,15 @@ const { selectusers, deleteuser, updateuser, selectAllUsuarios, insertarUsuarios
 const Router = express.Router();
 const session = require('express-session');
 const { selectAllMaterias, selectMateria, selectMateriaDocente, selectMateriaID } = require('../controller/materias_controller.js');
-const { selectAllDocentes, selectDocente } = require('../controller/docentes_controller.js');
+const { selectAllDocentes, selectDocente, insertarDocentes } = require('../controller/docentes_controller.js');
 const { selectAllNotas, selectNotaDocente, selectNotaAlumno, selectNotaMateria, selectNotaDocenteMateria, selectNotaAlumnoMateria } = require('../controller/notas_controller.js');
 const { selectAllAlumnos, selectAlumno, insertarAlumnos } = require('../controller/alumnos_controller.js');
-const { selectAllPeriodos, selectPeriodo } = require('../controller/periodos_controller.js');
+const { selectAllPeriodos, selectPeriodo, insertarPeriodos } = require('../controller/periodos_controller.js');
 
 //RUTAS PARA LOS PERIODOS
 Router.get('/selectAllPeriodos', selectAllPeriodos);
 Router.get('/selectPeriodo/id=:id', selectPeriodo);
+Router.post('/insertarPeriodos', insertarPeriodos);
 
 //RUTAS PARA LOS ALUMNOS
 Router.get('/selectAllAlumnos', selectAllAlumnos);
@@ -36,6 +37,7 @@ Router.get('/selectMateriaID/id=:id', selectMateriaID);
 //RUTAS PARA Docentes
 Router.get('/selectAllDocentes', selectAllDocentes);
 Router.get('/selectDocente/nombre=:nombre', selectDocente);
+Router.post('/insertarDocentes', insertarDocentes);
 
 //RUTAS CRUD DISPOSITIVOS IOT
 Router.get('/selectdevices', selectdevices);
