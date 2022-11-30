@@ -1,23 +1,25 @@
 const express = require('express')
 const { selectdevices, deletedevice, insetdevice, updatedevice, selectuserauth } = require('../controller/controller.js')
-const { selectusers, deleteuser, updateuser, selectAllUsuarios, insertarUsuarios } = require('../controller/user_controller.js')
+const { selectusers, deleteuser, selectAllUsuarios, insertarUsuarios, updateUsuarios } = require('../controller/user_controller.js')
 const Router = express.Router();
 const session = require('express-session');
-const { selectAllMaterias, selectMateria, selectMateriaDocente, selectMateriaID } = require('../controller/materias_controller.js');
-const { selectAllDocentes, selectDocente, insertarDocentes } = require('../controller/docentes_controller.js');
+const { selectAllMaterias, selectMateria, selectMateriaDocente, selectMateriaID, insertarMaterias } = require('../controller/materias_controller.js');
+const { selectAllDocentes, selectDocente, insertarDocentes, updateDocentes } = require('../controller/docentes_controller.js');
 const { selectAllNotas, selectNotaDocente, selectNotaAlumno, selectNotaMateria, selectNotaDocenteMateria, selectNotaAlumnoMateria } = require('../controller/notas_controller.js');
-const { selectAllAlumnos, selectAlumno, insertarAlumnos } = require('../controller/alumnos_controller.js');
-const { selectAllPeriodos, selectPeriodo, insertarPeriodos } = require('../controller/periodos_controller.js');
+const { selectAllAlumnos, selectAlumno, insertarAlumnos, updateAlumnos } = require('../controller/alumnos_controller.js');
+const { selectAllPeriodos, selectPeriodo, insertarPeriodos, updatePeriodos } = require('../controller/periodos_controller.js');
 
 //RUTAS PARA LOS PERIODOS
 Router.get('/selectAllPeriodos', selectAllPeriodos);
 Router.get('/selectPeriodo/id=:id', selectPeriodo);
 Router.post('/insertarPeriodos', insertarPeriodos);
+Router.put('/updatePeriodos', updatePeriodos);
 
 //RUTAS PARA LOS ALUMNOS
 Router.get('/selectAllAlumnos', selectAllAlumnos);
 Router.get('/selectAlumno/nombre=:nombre', selectAlumno);
 Router.post('/insertarAlumnos', insertarAlumnos);
+Router.put('/updateAlumnos', updateAlumnos);
 
 //RUTAS PARA LAS NOTAS
 Router.get('/selectAllNotas', selectAllNotas);
@@ -32,12 +34,14 @@ Router.get('/selectAllMaterias', selectAllMaterias);
 Router.get('/selectMateria/nombre=:nombre', selectMateria);
 Router.get('/selectMateriaDocente/id=:id', selectMateriaDocente);
 Router.get('/selectMateriaID/id=:id', selectMateriaID);
+Router.post('/insertarMaterias', insertarMaterias);
 
 
 //RUTAS PARA Docentes
 Router.get('/selectAllDocentes', selectAllDocentes);
 Router.get('/selectDocente/nombre=:nombre', selectDocente);
 Router.post('/insertarDocentes', insertarDocentes);
+Router.put('/updateDocentes', updateDocentes);
 
 //RUTAS CRUD DISPOSITIVOS IOT
 Router.get('/selectdevices', selectdevices);
@@ -50,7 +54,7 @@ Router.post('/selectuserauth', selectuserauth);
 Router.get('/selectusers', selectusers);
 Router.get('/selectAllUsuarios', selectAllUsuarios);
 Router.delete('/deleteuser/:id', deleteuser);
-Router.put('/updateuser/:id', updateuser);
+Router.put('/updateUsuarios', updateUsuarios);
 Router.post('/insertarUsuarios', insertarUsuarios);
 
 Router.get('/userauth', (req, res) => {

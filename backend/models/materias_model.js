@@ -8,18 +8,19 @@ const callback = (err, rows, resolve, reject, msg) => {
 
 module.exports = {
    methods: {
-      selectAllMaterias: function () {
+      selectAllMaterias2: function () {
          return new Promise((resolve, reject) => {
             con.query(`select * from materias`, (err, rows) => {
                callback(err, rows, resolve, reject)
             })
          })
       },
-      selectAllMaterias2: function () {
+      selectAllMaterias: function () {
          return new Promise((resolve, reject) => {
-            con.query(`select materias.idMateria, materias.nombre, docentes.nombreCompleto 
+            con.query(`select materias.idMateria, materias.nombre, docentes.nombreCompleto, periodos.periodo
             from materias 
-            inner join docentes on materias.idDocente = docentes.idDocente`, (err, rows) => {
+            inner join docentes on materias.idDocente = docentes.idDocente
+            inner join periodos on materias.idPeriodo = periodos.idPeriodo`, (err, rows) => {
                callback(err, rows, resolve, reject)
             })
          })
@@ -64,7 +65,7 @@ module.exports = {
 
       insertMateria: function (data) {
          return new Promise((resolve, reject) => {
-            con.query(`INSERT INTO materias (idDocente, nombre) VALUES ( '${data.docente}', '${data.nombre}')`, (err, rows) => {
+            con.query(`INSERT INTO materias (idDocente, idPeriodo, nombre) VALUES ( '${data.idDocente}', '${data.idPeriodo}', '${data.nombre}')`, (err, rows) => {
                callback(err, rows, resolve, reject)
             })
          })

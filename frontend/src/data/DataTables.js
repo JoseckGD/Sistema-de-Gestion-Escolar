@@ -144,6 +144,10 @@ export const dataTables = [
             name: 'Docente a cargo',
          },
 
+         {
+            name: 'Periodo'
+         }
+
       ],
    },
 

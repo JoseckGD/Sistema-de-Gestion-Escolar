@@ -1,14 +1,9 @@
 import { Modal, Button, Text, Input, Row } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { initialFormAlumnoAdd, initialFormAlumnoModify, initialFormCalificacionModify, initialFormDocenteAdd, initialFormDocenteModify, initialFormMateriaAdd, initialFormMateriaModify, initialFormPeriodoAdd, initialFormPeriodoModify, initialFormUserAdd, initialFormUserModify, labelFormAlumnoAdd, labelFormAlumnoModify, labelFormCalificacionModify, labelFormDocenteAdd, labelFormDocenteModify, labelFormMateriaAdd, labelFormMateriaModify, labelFormPeriodoAdd, labelFormPeriodoModify, labelFormUserAdd, labelFormUserModify } from "../data/DataFormsModal";
-// import { dataTables } from '../data/DataTables.js'
+import { InputSelect } from "./InputSelect";
 
 export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, handleDelete, data, title, tipo }) => {
-
-   // const [form, setForm] = useState(
-   //    title === 'usuarios' ? (data === null ? initialFormUserAdd : initialFormUserModify) :
-   //       (title === 'calificacion' && initialFormCalificacionModify)
-   // );
 
    const handleChange = (e) => {
       // console.log(e.target.name, e.target.value)
@@ -70,13 +65,8 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
             return (tipo === 'Agregar' ? initialFormAlumnoAdd : initialFormAlumnoModify);
 
          default: return null;
-            break;
       }
    }
-   // console.log(form);
-   // dataTables.map((item, index) => (
-   //    item.titleTable.includes(title) && (indexT = index)
-   // ));
 
    const [form, setForm] = useState(getInitialForm());
 
@@ -84,7 +74,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
       if (tipo === 'Agregar' && data) {
          setForm(data)
       } else {
-         setForm(null);
+         setForm(getInitialForm());
       }
    }, [data])
 
@@ -93,12 +83,13 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
       if (tipo === 'Modificar') {
          setForm(data)
       } else {
-         if (tipo === 'Agregar') {
-            setForm(data)
-         } else {
+         if (tipo === 'Agregar' && !data) {
             setForm(getInitialForm())
+         } else {
+               setForm(getInitialForm())
          }
       }
+      // eslint-disable-next-line
    }, [visibleModal])
 
    return (
@@ -189,9 +180,9 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
 
                      {tipo === 'Agregar' && (
                         Object.keys(getInitialForm()).map((campo, index) => (
-                           // Object.keys(initialFormUserAdd).map((campo, index) => (Object.keys(object1).length
+
                            index < Object.keys(getInitialForm()).length - 1 &&
-                           // index < 5 &&
+
                            <Input
                               type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : 'text'}
                               label={Object.keys(getLabel())[index]}
@@ -214,8 +205,31 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                   </>
                ) : (
                   tipo === 'Agregar' && (
-                     Object.keys(getInitialForm()).map((campo, index) => (
-                        // Object.keys(initialFormUserAdd).map((campo, index) => (Object.keys(object1).length
+                     title ==='materias'?(
+                     <>
+                        <Input
+                           type={'text'}
+                           label={Object.keys(getLabel())[0]}
+                           // label={Object.keys(labelFormUserAdd)[index]}
+                           name={'nombre'}
+                           value={form&&form.nombre}
+                           onChange={(e) => handleChange(e)}
+                           key={0}
+                           clearable
+                           status="primary"
+                           fullWidth
+                           color="primary"
+                           size="md"
+                           placeholder={Object.values(getLabel())[0]}
+                        />
+                           <Text h6 color="primary">Asignar un docente</Text>
+                           <InputSelect tipo='Docente' handleChange={handleChange}/>
+                           <Text h6 color="primary">Asignar un periodo</Text>
+                           <InputSelect tipo='Periodo' handleChange={handleChange}/>
+                     </>
+                     ):
+                        Object.keys(getInitialForm()).map((campo, index) => (
+                           // Object.keys(initialFormUserAdd).map((campo, index) => (Object.keys(object1).length
                         index < Object.keys(getInitialForm()).length - 1 &&
                         // index < 5 &&
                         <Input
@@ -233,9 +247,10 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                            color="primary"
                            size="md"
                            placeholder={Object.values(getLabel())[index]}
-                        // placeholder={Object.values(labelFormUserAdd)[index]}
-                        />
-                     )))
+                           // placeholder={Object.values(labelFormUserAdd)[index]}
+                           />
+                           )))
+                     
                )
                }
             </Modal.Body>
@@ -257,7 +272,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                      <Button auto flat color="error" onPress={handleClose}>
                         Cancelar
                      </Button>
-                     <Button auto onPress={() => handleModify(data)}>
+                     <Button auto onPress={() => handleModify(form)}>
                         Modifcar
                      </Button>
                   </>

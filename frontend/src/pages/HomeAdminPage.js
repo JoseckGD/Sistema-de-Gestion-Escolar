@@ -41,6 +41,7 @@ export const HomeAdminPage = () => {
       getData,
       allDocentes,
       createData,
+      updateData,
       // getOneData,
       authUser,
    } = useStateContext();
@@ -96,14 +97,8 @@ export const HomeAdminPage = () => {
 
    const handleModify = (data) => {
       console.log(data);
+      // updateData(user, data);
       handleClose();
-
-      // setDataToEdit(data);
-      // setTipoModal('Modificar');
-      // setTitleModal('usuario');
-      // setIsAddUser(false);
-      // setActive(false);
-      // setActive(true);
    }
 
    const handleAdd = (data) => {
@@ -159,7 +154,9 @@ export const HomeAdminPage = () => {
             break;
 
          case 'Materias':
-
+            console.log(data);
+            createData(user, data);
+            handleClose();
             break;
 
          default:
@@ -227,7 +224,6 @@ export const HomeAdminPage = () => {
             return alumnos;
          default:
             return null;
-            break;
       }
    }
 

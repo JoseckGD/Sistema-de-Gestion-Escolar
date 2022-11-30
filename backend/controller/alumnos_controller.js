@@ -99,26 +99,19 @@ module.exports = {
       });
   },
 
-  updatedevice: (req, res) => {
-    let data = {
-      id: req.params.id,
-      nombre: req.body.nombre,
-      tipo: req.body.tipo,
-      estado: req.body.estado,
-      variable_medida: req.body.dato_medida
-    }
-
-    _model_alumnos.methods.updateDevice(data)
+  updateAlumnos: (req, res) => {
+    console.log(req.body);
+    _model_alumnos.methods.updateAlumno(req.body)
       .then(rows => {
         res.send({
           success: true,
-          message: 'Se ha actualizado un registro'
+          message: 'Se ha actualizado los datos del alumno'
         })
       })
       .catch(err => {
         res.send({
           success: false,
-          message: 'Error al actualizar el registro'
+          message: 'Error al actualizar los datos del alumno'
         });
       })
   },

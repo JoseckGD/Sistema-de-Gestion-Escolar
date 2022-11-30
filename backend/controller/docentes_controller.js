@@ -77,4 +77,20 @@ module.exports = {
          })
 
    },
+   updateDocentes: (req, res) => {
+      console.log(req.body);
+      _model_docentes.methods.updateDocente(req.body)
+        .then(rows => {
+          res.send({
+            success: true,
+            message: 'Se han actualizado los datos del docente'
+          })
+        })
+        .catch(err => {
+          res.send({
+            success: false,
+            message: 'Error al actualizar los datos del docente'
+          });
+        })
+    },
 }

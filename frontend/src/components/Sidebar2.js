@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import { useStateContext } from '../contexts/ContextProvider';
 import { buttonsData, buttonsDataAdmin, buttonsDataAlumno, buttonsDataDocente } from '../data/SidebarData';
 import { IoMdExit } from "react-icons/io";
@@ -8,8 +7,7 @@ import { Card, Text, Button } from "@nextui-org/react";
 
 export const Sidebar2 = ({ handleUser, user, }) => {
 
-   const { rolUser, authUser, handleCloseSesion } = useStateContext();
-   const [isUser, setIsUser] = useState(false);
+   const { rolUser, handleCloseSesion } = useStateContext();
    // console.log(isUser);
    return (
       <Card variant="bordered" className='Sidebar' css={{ $$cardColor: '#0072f560', }}>

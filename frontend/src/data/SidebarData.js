@@ -1,8 +1,6 @@
-import homepage from '../img/homepage.png';
 import { FaChalkboardTeacher, FaUserGraduate } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi"
 import { GrUserAdmin } from "react-icons/gr";
-import { HiOutlineUserGroup } from "react-icons/hi2";
 import { BsJournalBookmark } from "react-icons/bs"
 import { CgNotes } from "react-icons/cg"
 

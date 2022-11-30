@@ -76,4 +76,22 @@ module.exports = {
             })
          })
    },
+   insertarMaterias: (req, res) => {
+      console.log(req.body);
+      _model_materias.methods.insertMateria(req.body)
+        .then(rows => {
+          res.send({
+            success: true,
+            message: 'La materia ha sido registrado exitosamente'
+          })
+        })
+        .catch(err => {
+          res.send({
+            success: false,
+            message: 'Error al Registrar la materia',
+            result: err
+          })
+        })
+  
+    }
 }

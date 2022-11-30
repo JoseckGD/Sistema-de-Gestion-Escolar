@@ -13,7 +13,7 @@ function App() {
     <>
       <HashRouter>
         <Routes>
-          <Route exact path='/' element={<HomePage />} />
+          <Route exact path='/' element={<WelcomePage />} />
           <Route exact path='/welcome' element={<WelcomePage />} />
           <Route exact path='/alumno' element={<HomeAlumnoPage />} />
           <Route exact path='/docente' element={<HomeDocentePage />} />

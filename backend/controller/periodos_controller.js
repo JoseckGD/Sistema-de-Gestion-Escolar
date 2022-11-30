@@ -77,4 +77,20 @@ module.exports = {
          })
 
    },
+   updatePeriodos: (req, res) => {
+      console.log(req.body);
+      _model_periodos.methods.updatePeriodo(req.body)
+        .then(rows => {
+          res.send({
+            success: true,
+            message: 'Se ha actualizado los datos del periodo'
+          })
+        })
+        .catch(err => {
+          res.send({
+            success: false,
+            message: 'Error al actualizar los datos del periodo'
+          });
+        })
+    },
 }

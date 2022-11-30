@@ -34,7 +34,9 @@ module.exports = {
 
     updateUser: function (data) {
       return new Promise((resolve, reject) => {
-        con.query(`UPDATE usuario SET nombre='${data.nombre}', numero_telefono='${data.numero_telefono}', correo='${data.correo}', rol='${data.rol}' WHERE id_usuario=${data.id_usuario}`, (err, rows) => {
+        con.query(`UPDATE usuarios 
+        SET usuario='${data.usuario}', tipoUsuario='${data.tipoUsuario}'
+        WHERE idUsuario=${data.idUsuario}`, (err, rows) => {
           callback(err, rows, resolve, reject)
         });
       });

@@ -60,17 +60,9 @@ module.exports = {
       })
   },
 
-  updateuser: (req, res) => {
-    console.log(req.params.id)
-    let data = {
-      id_usuario: req.params.id,
-      nombre: req.body.nombre,
-      numero_telefono: req.body.numero_telefono,
-      correo: req.body.correo,
-      rol: req.body.rol
-    }
-
-    _model.methods.updateUser(data)
+  updateUsuarios: (req, res) => {
+    console.log(req.body);
+    _model.methods.updateUser(req.body)
       .then(rows => {
         res.send({
           success: true,

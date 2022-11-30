@@ -242,6 +242,30 @@ export const ContextProvider = ({ children }) => {
     fetchAJAX(options)
   }
 
+    //Actualizar Usuario
+    const updateData = (tabla, data) => {
+      let options = {
+      url: `${rutaBase}update${tabla}`,
+        settings: {
+          method: "PUT",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        },
+        resSuccess: (json => {
+          console.log(json)
+          getData(`selectAll${tabla}`);
+        }),
+        resError: (err => {
+          console.log("Huvo un Error al Actualizar el registro", err)
+        }),
+  
+      };
+  
+      fetchAJAX(options)
+    }
+
 
 
   // crear un Usuario
@@ -278,27 +302,6 @@ export const ContextProvider = ({ children }) => {
         console.log(error);
       }
     })
-  };
-
-  // actualizar data de usuario
-  const updateData = (data) => {
-    console.log(data);
-    // let endpoint = `${url}/${data.id}`;
-
-    // let options = {
-    //    body: data,
-    //    headers: { "content-type": "application/json" }
-    // };
-    // api.put(endpoint, options).then((res) => {
-    //    //console.log(res);
-    //    if (!res.err) {
-    //       let newData = db.map(el => el.id === data.id ? data : el);
-    //       setDb(newData);
-    //    } else {
-    //       setError(res);
-    //    }
-    // });
-
   };
 
   //Eliminar Dispositivo
@@ -445,7 +448,8 @@ export const ContextProvider = ({ children }) => {
     allUsuarios,
     allPeriodos,
     allMaterias,
-    allDocentes
+    allDocentes,
+    updateData
   };
 
   return (

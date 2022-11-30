@@ -34,7 +34,9 @@ module.exports = {
 
     updatePeriodo: function (data) {
       return new Promise((resolve, reject) => {
-        con.query(`UPDATE periodos SET periodo='${data.periodo}', fechaInicio='${data.fechaInicio}', fechaTermino='${data.fechaTermino}' WHERE idPeriodo=${data.idPeriodo}`, (err, rows) => {
+        con.query(`UPDATE periodos 
+        SET periodo='${data.periodo}', fechaInicio='${data.fechaInicio}', fechaTermino='${data.fechaTermino}' 
+        WHERE idPeriodo=${data.idPeriodo}`, (err, rows) => {
           callback(err, rows, resolve, reject)
         });
       });

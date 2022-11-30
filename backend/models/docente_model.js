@@ -44,7 +44,9 @@ module.exports = {
 
       updateDocente: function (data) {
          return new Promise((resolve, reject) => {
-            con.query(`UPDATE docentes SET nombre='${data.nombre}', idDocente='${data.docente}' WHERE idMateria=${data.id}`, (err, rows) => {
+            con.query(`UPDATE docentes 
+            SET nombreCompleto='${data.nombreCompleto}', telefono='${data.telefono}' , correo='${data.correo}'
+            WHERE idDocente=${data.idDocente}`, (err, rows) => {
                callback(err, rows, resolve, reject)
             });
          });

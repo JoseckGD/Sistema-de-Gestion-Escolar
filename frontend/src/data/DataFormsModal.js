@@ -94,24 +94,28 @@ export const initialFormMateriaModify = {
    idMateria: "",
    nombre: "",
    nombreCompleto: "",
+   idPeriodo:"",
 };
 
 export const labelFormMateriaModify = {
    'ID Materia': "Escribe el id de la materia",
    'Materia': "Escribe el nombre de la materia",
    'Docente': "Escribe el docente a cargo",
+   'Periodo': "Escribe el periodo",
 };
 
 //DATA del formulario de AGREGAR una materia=========================================
 export const initialFormMateriaAdd = {
    nombre: "",
    idDocente: "",
-   idMateria: "",
+   idPeriodo: "",
+   idMateria: null,
 };
 
 export const labelFormMateriaAdd = {
    'Materia': "Escribe el nombre de la materia",
    'Docente': "Escribe el docente a cargo",
+   'Periodo': "Escribe el periodo",
    'ID Materia': "Escribe el id de la materia",
 };
 
