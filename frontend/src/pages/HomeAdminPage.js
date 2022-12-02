@@ -233,7 +233,7 @@ export const HomeAdminPage = () => {
          {authUser === 'false' ? <Navigate to='/welcome' /> : (
             <>
                <Header nameUser={nameUser} />
-               <Sidebar2 handleUser={handleUser} user={user} />
+               <Sidebar2 handleUser={handleUser} user={user} /> 
 
                <MyModal
                   visibleModal={visibleModel}

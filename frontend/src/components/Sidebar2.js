@@ -60,13 +60,17 @@ export const Sidebar2 = ({ handleUser, user, }) => {
                {
                   rolUser === 'Docente' && (
                      buttonsDataDocente.map((el) => (
-                        <div key={el.titulo} className={`btn ${el.titulo === user ? 'active' : ''}`} >
-                           <div className='icon-btn'>
-                              {el.icon}
-                           </div>
-                           {/* <img src={el.icon} className='icon-btn' alt='logo' /> */}
+                        <Button shadow icon={el.icon} color="black" size="lg"
+                           key={el.titulo} className={`btn ${el.titulo === user ? 'active' : ''}`} onPress={() => handleUser(el.titulo)}>
                            {el.titulo}
-                        </div>
+                        </Button>
+                        // <div key={el.titulo} className={`btn ${el.titulo === user ? 'active' : ''}`} >
+                        //    <div className='icon-btn'>
+                        //       {el.icon}
+                        //    </div>
+                        //    {/* <img src={el.icon} className='icon-btn' alt='logo' /> */}
+                        //    {el.titulo}
+                        // </div>
                      )))
                }
 

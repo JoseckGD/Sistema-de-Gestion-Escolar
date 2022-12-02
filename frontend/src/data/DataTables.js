@@ -177,4 +177,27 @@ export const dataTables = [
 
       ],
    },
+
+   {
+      titleTable: 'Tus materias',
+      titleTableHead: [
+
+         {
+            name: '#',
+         },
+
+         {
+            name: 'ID Materia',
+         },
+
+         {
+            name: 'Materia',
+         },
+
+         {
+            name: 'Periodo'
+         }
+
+      ],
+   },
 ];

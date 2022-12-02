@@ -11,12 +11,15 @@ import { Spacer, Card, Row, Text } from "@nextui-org/react";
 import { Table } from "../components/table/Table";
 import { MyModal } from "../components/Modal";
 import { useTitle } from "../hooks/useTitle";
+import { InfoUsuario } from "../components/InfoUsuario";
 
 export const HomeDocentePage = () => {
    useTitle('Docente');
+   const [user, setUser] = useState('Calificaciones');
 
    const [oneMateria, setOneMateria] = useState(null);
    const [materiasDocente, setMateriasDocente] = useState(null);
+   const [allMateriasDocente, setAllMateriasDocente] = useState(null);
    const [currentDocente, setCurrentDocente] = useState(null);
    const [notasCalificar, setNotasCalificar] = useState(null);
 
@@ -27,7 +30,15 @@ export const HomeDocentePage = () => {
 
    const [dataToEdit, setDataToEdit] = useState(null);
 
-   const { nameUser, docente, materia, notasMateriaDocente, getOneData, docenteMaterias, authUser } = useStateContext();
+   const { nameUser,
+      docente,
+      materia,
+      notasMateriaDocente,
+      getOneData,
+      docenteMaterias,
+      authUser,
+      allDocenteMaterias,
+   } = useStateContext();
 
 
    useEffect(() => {
@@ -44,6 +55,7 @@ export const HomeDocentePage = () => {
    useEffect(() => {
       if (currentDocente !== null) {
          getOneData('selectMateriaDocente', 'id', currentDocente.idDocente);
+         getOneData('selectAllMateriasDocente', 'id', currentDocente.idDocente);
       }
       // eslint-disable-next-line
    }, [currentDocente])
@@ -53,6 +65,12 @@ export const HomeDocentePage = () => {
          setMateriasDocente(docenteMaterias);
       }
    }, [docenteMaterias])
+
+   useEffect(() => {
+      if (allDocenteMaterias !== null) {
+         setAllMateriasDocente(allDocenteMaterias);
+      }
+   }, [allDocenteMaterias])
 
    const handleChange = (e) => {
       if (e.target.value === '') {
@@ -133,6 +151,36 @@ export const HomeDocentePage = () => {
       // setTipoModal('Eliminar');
       // setVisibleModal(true);
    }
+   const handleUser = (u) => {
+      setUser(u);
+      // getData(`selectAll${u}`);
+   }
+
+   const getDataTOShow = () => {
+      switch (user) {
+         case 'Calificaciones':
+            return notasCalificar;
+
+         case 'Materias':
+            return allMateriasDocente;
+
+         default:
+            return null;
+      }
+   }
+
+   const getTitleTOShowData = () => {
+      switch (user) {
+         case 'Calificaciones':
+            return 'calificacion';
+
+         case 'Materias':
+            return 'Tus';
+
+         default:
+            return null;
+      }
+   }
 
    return (
       <>
@@ -140,7 +188,7 @@ export const HomeDocentePage = () => {
          {authUser === 'false' ? <Navigate to='/welcome' /> : (
             <>
                <Header nameUser={nameUser} />
-               <Sidebar2 />
+               <Sidebar2 handleUser={handleUser} user={user} />
 
                <MyModal
                   visibleModal={visibleModel}
@@ -155,36 +203,47 @@ export const HomeDocentePage = () => {
 
                <Card css={{ $$cardColor: '#0072f560', m: '1rem 0' }} variant="bordered" className='main'>
                   <Card.Body>
-
                      <Row justify="center" align="center">
                         <Text h3 color="white" css={{ m: 0 }} >
-                           Capturar calificaciones
+                           {user === 'Calificaciones' && 'Capturar calificaciones'}
+                           {user === 'Materias' && 'Materias asignadas'}
+                           {user === 'Perfil' && 'Informacion'}
                         </Text>
                      </Row>
 
-                     <Spacer y={1} />
+                     {user === 'Perfil' ?
+                        <InfoUsuario nombre={currentDocente.nombreCompleto} />
+                        :
+                        <>
+                           <Spacer y={1} />
+                           {user === 'Calificaciones' &&
+                              <>
+                                 <Text h3 color="white" css={{ m: 0 }} >
+                                    Selecciona la materia
+                                 </Text>
+                                 <select style={{ color: '#000' }} defaultValue={''} name='materias' id="" onChange={handleChange}>
+                                    <option value="" >Selecionar...</option>
+                                    {materiasDocente !== null && materiasDocente.map((el) => (
+                                       <option value={el.nombre} key={el.idMateria}>{el.nombre} </option>
+                                    ))}
+                                 </select>
+                              </>
+                           }
 
-                     <Text h3 color="white" css={{ m: 0 }} >
-                        Selecciona la materia
-                     </Text>
-                     <select style={{ color: '#000' }} defaultValue={''} name='materias' id="" onChange={handleChange}>
-                        <option value="" >Selecionar...</option>
-                        {materiasDocente !== null && materiasDocente.map((el) => (
-                           <option value={el.nombre} key={el.idMateria}>{el.nombre} </option>
-                        ))}
-                     </select>
+                           <Spacer y={1} />
 
-                     <Spacer y={1} />
-
-                     <Row justify="center" align="center">
-                        <Table
-                           title='calificacion'
-                           handleOpenModal={handleOpenModal}
-                           eventoModify={handleModify}
-                           eventoDelete={handleDelete}
-                           data={notasCalificar}
-                        />
-                     </Row>
+                           <Row justify="center" align="center">
+                              <Table
+                                 title={getTitleTOShowData()}
+                                 handleOpenModal={handleOpenModal}
+                                 eventoModify={handleModify}
+                                 eventoDelete={handleDelete}
+                                 // data={notasCalificar}
+                                 data={getDataTOShow()}
+                              />
+                           </Row>
+                        </>
+                     }
                   </Card.Body>
                </Card>
             </>

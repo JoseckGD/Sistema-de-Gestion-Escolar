@@ -33,10 +33,12 @@ export const ContextProvider = ({ children }) => {
   const [allMaterias, setAllMaterias] = useState(null);
   const [materia, setMateria] = useState(null);
   const [docenteMaterias, setDocenteMaterias] = useState(null);
+  const [allDocenteMaterias, setAllDocenteMaterias] = useState(null);
   const [alumnoMaterias, setAlumnoMaterias] = useState(null);
 
   const [allDocentes, setAllDocentes] = useState(null);
   const [docente, setDocente] = useState(null);
+  const [infoDocente, setInfoDocente] = useState(null);
 
   const [allAlumnos, setAllAlumnos] = useState(null);
   const [alumno, setAlumno] = useState(null);
@@ -128,6 +130,11 @@ export const ContextProvider = ({ children }) => {
       },
       resSuccess: (json => {
         switch (url) {
+
+          case 'selectAllMateriasDocente':
+            setAllDocenteMaterias(json.result);
+            break;
+
           case 'selectMateriaDocente':
             setDocenteMaterias(json.result);
             break;
@@ -136,9 +143,14 @@ export const ContextProvider = ({ children }) => {
             setDocente(json.result);
             break;
 
+          case 'selectInfoDocente':
+            setInfoDocente(json.result);
+            break;
+
           case 'selectMateria':
             setMateria(json.result);
             break;
+
           case 'selectMateriaID':
             setAlumnoMaterias(json.result);
             break;
@@ -242,29 +254,29 @@ export const ContextProvider = ({ children }) => {
     fetchAJAX(options)
   }
 
-    //Actualizar Usuario
-    const updateData = (tabla, data) => {
-      let options = {
+  //Actualizar Usuario
+  const updateData = (tabla, data) => {
+    let options = {
       url: `${rutaBase}update${tabla}`,
-        settings: {
-          method: "PUT",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
+      settings: {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
         },
-        resSuccess: (json => {
-          console.log(json)
-          getData(`selectAll${tabla}`);
-        }),
-        resError: (err => {
-          console.log("Huvo un Error al Actualizar el registro", err)
-        }),
-  
-      };
-  
-      fetchAJAX(options)
-    }
+        body: JSON.stringify(data)
+      },
+      resSuccess: (json => {
+        console.log(json)
+        getData(`selectAll${tabla}`);
+      }),
+      resError: (err => {
+        console.log("Huvo un Error al Actualizar el registro", err)
+      }),
+
+    };
+
+    fetchAJAX(options)
+  }
 
 
 
@@ -449,7 +461,9 @@ export const ContextProvider = ({ children }) => {
     allPeriodos,
     allMaterias,
     allDocentes,
-    updateData
+    updateData,
+    allDocenteMaterias,
+    infoDocente
   };
 
   return (

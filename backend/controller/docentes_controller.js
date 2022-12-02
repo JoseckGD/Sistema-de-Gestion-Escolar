@@ -41,6 +41,27 @@ module.exports = {
             })
          })
    },
+
+   selectInfoDocente: (req, res) => {
+      let nombre = req.params.nombre;
+      console.log('nombre: ', nombre);
+      _model_docentes.methods.selectInfoDocente(nombre)
+         .then(rows => {
+            res.send({
+               success: true,
+               message: 'La informacion del docente han sido obtenida',
+               result: rows,
+            })
+         })
+         .catch(err => {
+            res.send({
+               success: false,
+               message: 'Error al obtener la informacion del docente',
+               result: err
+            })
+         })
+   },
+
    selectDocente: (req, res) => {
       let nombre = req.params;
       _model_docentes.methods.selectDocente(nombre)
@@ -80,17 +101,17 @@ module.exports = {
    updateDocentes: (req, res) => {
       console.log(req.body);
       _model_docentes.methods.updateDocente(req.body)
-        .then(rows => {
-          res.send({
-            success: true,
-            message: 'Se han actualizado los datos del docente'
-          })
-        })
-        .catch(err => {
-          res.send({
-            success: false,
-            message: 'Error al actualizar los datos del docente'
-          });
-        })
-    },
+         .then(rows => {
+            res.send({
+               success: true,
+               message: 'Se han actualizado los datos del docente'
+            })
+         })
+         .catch(err => {
+            res.send({
+               success: false,
+               message: 'Error al actualizar los datos del docente'
+            });
+         })
+   },
 }

@@ -1,5 +1,5 @@
 import { FaChalkboardTeacher, FaUserGraduate } from "react-icons/fa";
-import { FiUsers } from "react-icons/fi"
+import { FiUser, FiUsers } from "react-icons/fi"
 import { GrUserAdmin } from "react-icons/gr";
 import { BsJournalBookmark } from "react-icons/bs"
 import { CgNotes } from "react-icons/cg"
@@ -56,11 +56,15 @@ export const buttonsDataAlumno = [
 
 export const buttonsDataDocente = [
    {
-      titulo: 'Alumnos',
-      icon: <FaUserGraduate />,
+      titulo: 'Calificaciones',
+      icon: <CgNotes />,
    },
    {
       titulo: 'Materias',
       icon: <BsJournalBookmark />,
+   },
+   {
+      titulo: 'Perfil',
+      icon: <FiUser />,
    },
 ];

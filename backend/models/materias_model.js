@@ -25,6 +25,18 @@ module.exports = {
             })
          })
       },
+      
+      selectAllMateriasDocente: function (data) {
+         return new Promise((resolve, reject) => {
+            con.query(`select materias.idMateria, materias.nombre, periodos.periodo
+            from materias
+            inner join periodos on materias.idPeriodo = periodos.idPeriodo
+            and materias.idDocente = '${data.id}';`, (err, rows) => {
+               callback(err, rows, resolve, reject)
+            })
+         })
+      },
+      
       selectMateriaDocente: function (data) {
          return new Promise((resolve, reject) => {
             con.query(`SELECT * FROM materias WHERE idDocente ='${data.id}' `, (err, rows) => {

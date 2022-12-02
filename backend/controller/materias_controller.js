@@ -40,6 +40,26 @@ module.exports = {
             })
          })
    },
+
+   selectAllMateriasDocente: (req, res) => {
+      let id = req.params;
+      _model_materias.methods.selectAllMateriasDocente(id)
+         .then(rows => {
+            res.send({
+               success: true,
+               message: 'Las materias del docente han sido obtenidas',
+               result: rows,
+            })
+         })
+         .catch(err => {
+            res.send({
+               success: false,
+               message: 'Error al obtener las materias del docente',
+               result: err
+            })
+         })
+   },
+
    selectMateria: (req, res) => {
       let nombre = req.params;
       _model_materias.methods.selectMateria(nombre)

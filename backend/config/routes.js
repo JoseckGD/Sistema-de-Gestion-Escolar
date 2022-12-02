@@ -3,8 +3,8 @@ const { selectdevices, deletedevice, insetdevice, updatedevice, selectuserauth }
 const { selectusers, deleteuser, selectAllUsuarios, insertarUsuarios, updateUsuarios } = require('../controller/user_controller.js')
 const Router = express.Router();
 const session = require('express-session');
-const { selectAllMaterias, selectMateria, selectMateriaDocente, selectMateriaID, insertarMaterias } = require('../controller/materias_controller.js');
-const { selectAllDocentes, selectDocente, insertarDocentes, updateDocentes } = require('../controller/docentes_controller.js');
+const { selectAllMaterias, selectMateria, selectMateriaDocente, selectMateriaID, insertarMaterias, selectAllMateriasDocente } = require('../controller/materias_controller.js');
+const { selectAllDocentes, selectDocente, insertarDocentes, updateDocentes, selectInfoDocente } = require('../controller/docentes_controller.js');
 const { selectAllNotas, selectNotaDocente, selectNotaAlumno, selectNotaMateria, selectNotaDocenteMateria, selectNotaAlumnoMateria } = require('../controller/notas_controller.js');
 const { selectAllAlumnos, selectAlumno, insertarAlumnos, updateAlumnos } = require('../controller/alumnos_controller.js');
 const { selectAllPeriodos, selectPeriodo, insertarPeriodos, updatePeriodos } = require('../controller/periodos_controller.js');
@@ -33,6 +33,7 @@ Router.get('/selectNotaMateria/id=:id', selectNotaMateria);
 Router.get('/selectAllMaterias', selectAllMaterias);
 Router.get('/selectMateria/nombre=:nombre', selectMateria);
 Router.get('/selectMateriaDocente/id=:id', selectMateriaDocente);
+Router.get('/selectAllMateriasDocente/id=:id', selectAllMateriasDocente);
 Router.get('/selectMateriaID/id=:id', selectMateriaID);
 Router.post('/insertarMaterias', insertarMaterias);
 
@@ -40,6 +41,7 @@ Router.post('/insertarMaterias', insertarMaterias);
 //RUTAS PARA Docentes
 Router.get('/selectAllDocentes', selectAllDocentes);
 Router.get('/selectDocente/nombre=:nombre', selectDocente);
+Router.get('/selectInfoDocente/nombre=:nombre', selectInfoDocente);
 Router.post('/insertarDocentes', insertarDocentes);
 Router.put('/updateDocentes', updateDocentes);
 
