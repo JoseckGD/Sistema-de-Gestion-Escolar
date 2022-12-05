@@ -38,6 +38,8 @@ export const HomeDocentePage = () => {
       docenteMaterias,
       authUser,
       allDocenteMaterias,
+      updateData,
+      updateOneData
    } = useStateContext();
 
 
@@ -119,7 +121,9 @@ export const HomeDocentePage = () => {
    }
 
    const handleModify = (data) => {
-      console.log(data);
+      // console.log(data);
+      updateData('docentes', data);
+      updateData('UsuariosUsuario', data);
       handleClose();
 
       // setDataToEdit(data);
@@ -212,7 +216,7 @@ export const HomeDocentePage = () => {
                      </Row>
 
                      {user === 'Perfil' ?
-                        <InfoUsuario nombre={currentDocente.nombreCompleto} />
+                        <InfoUsuario nombre={currentDocente.nombreCompleto} handleModify={handleModify} />
                         :
                         <>
                            <Spacer y={1} />

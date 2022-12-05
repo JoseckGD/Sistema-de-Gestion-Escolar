@@ -21,7 +21,7 @@ module.exports = {
 
       selectInfoDocente: function (nombre) {
          return new Promise((resolve, reject) => {
-            con.query(`select docentes.nombreCompleto, docentes.telefono, docentes.correo, usuarios.usuario
+            con.query(`select docentes.nombreCompleto, docentes.telefono, docentes.correo, usuarios.usuario, docentes.idDocente, usuarios.idUsuario
             from docentes
             inner join usuarios on usuarios.nombre=docentes.nombreCompleto 
             and docentes.nombreCompleto  ='${nombre}' `, (err, rows) => {

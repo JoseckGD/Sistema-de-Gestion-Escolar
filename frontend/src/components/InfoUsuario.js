@@ -3,7 +3,7 @@ import { initialDataInfoDocente, labelDataInfoDocente } from '../data/DataInfoUs
 import { Button, Input, Spacer, Row } from "@nextui-org/react";
 import { useStateContext } from '../contexts/ContextProvider';
 
-export const InfoUsuario = ({ nombre }) => {
+export const InfoUsuario = ({ nombre, handleModify }) => {
 
     const { rolUser, infoDocente, getOneData } = useStateContext();
 
@@ -14,6 +14,7 @@ export const InfoUsuario = ({ nombre }) => {
 
     useEffect(() => {
         if (infoDocente !== null) {
+            // console.log(infoDocente);
             setForm(infoDocente[0]);
         }
         // eslint-disable-next-line
@@ -86,12 +87,12 @@ export const InfoUsuario = ({ nombre }) => {
 
             <Row justify="center" align="center">
 
-                <Button flat auto color="warning">
+                <Button flat disabled auto color="warning">
                     Cambiar contraseña
                 </Button>
                 <Spacer y={1} />
 
-                <Button auto shadow>
+                <Button auto shadow onPress={() => handleModify(form)}>
                     Actualizar tu Informacion
                 </Button>
             </Row>

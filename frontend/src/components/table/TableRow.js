@@ -40,7 +40,7 @@ export const TableRow = ({ title, el, eventoModify, eventoDelete, index, handleO
             <TableD elemento={`${getPromedioAlumno()}`} key={Math.random()} />
          )}
 
-         {title !== 'calificaciones' && (
+         {(title !== 'calificaciones' && title !== 'Tus') && (
 
             <td className='td-modificar' data-id={id}>
                <Tooltip content="Modificar">

@@ -1,6 +1,6 @@
 const express = require('express')
 const { selectdevices, deletedevice, insetdevice, updatedevice, selectuserauth } = require('../controller/controller.js')
-const { selectusers, deleteuser, selectAllUsuarios, insertarUsuarios, updateUsuarios } = require('../controller/user_controller.js')
+const { selectusers, deleteuser, selectAllUsuarios, insertarUsuarios, updateUsuarios, updateUsuariosUsuario } = require('../controller/user_controller.js')
 const Router = express.Router();
 const session = require('express-session');
 const { selectAllMaterias, selectMateria, selectMateriaDocente, selectMateriaID, insertarMaterias, selectAllMateriasDocente } = require('../controller/materias_controller.js');
@@ -57,6 +57,7 @@ Router.get('/selectusers', selectusers);
 Router.get('/selectAllUsuarios', selectAllUsuarios);
 Router.delete('/deleteuser/:id', deleteuser);
 Router.put('/updateUsuarios', updateUsuarios);
+Router.put('/updateUsuariosUsuario', updateUsuariosUsuario);
 Router.post('/insertarUsuarios', insertarUsuarios);
 
 Router.get('/userauth', (req, res) => {

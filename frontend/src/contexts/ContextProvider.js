@@ -254,7 +254,7 @@ export const ContextProvider = ({ children }) => {
     fetchAJAX(options)
   }
 
-  //Actualizar Usuario
+  //Actualizar lo que sea
   const updateData = (tabla, data) => {
     let options = {
       url: `${rutaBase}update${tabla}`,
@@ -267,7 +267,9 @@ export const ContextProvider = ({ children }) => {
       },
       resSuccess: (json => {
         console.log(json)
-        getData(`selectAll${tabla}`);
+        if (tabla !== 'UsuariosUsuario') {
+          getData(`selectAll${tabla}`);
+        }
       }),
       resError: (err => {
         console.log("Huvo un Error al Actualizar el registro", err)
@@ -278,6 +280,29 @@ export const ContextProvider = ({ children }) => {
     fetchAJAX(options)
   }
 
+  //Actualizar Usuario
+  const updateOneData = (tabla, data, dataToUpdate) => {
+    let options = {
+      url: `${rutaBase}update${tabla}${dataToUpdate}`,
+      settings: {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      },
+      resSuccess: (json => {
+        console.log(json)
+        //getData(`selectAll${tabla}`);
+      }),
+      resError: (err => {
+        console.log("Huvo un Error al Actualizar el registro", err)
+      }),
+
+    };
+
+    fetchAJAX(options)
+  }
 
 
   // crear un Usuario
@@ -463,7 +488,8 @@ export const ContextProvider = ({ children }) => {
     allDocentes,
     updateData,
     allDocenteMaterias,
-    infoDocente
+    infoDocente,
+    updateOneData
   };
 
   return (

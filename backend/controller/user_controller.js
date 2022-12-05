@@ -77,6 +77,23 @@ module.exports = {
       })
   },
 
+  updateUsuariosUsuario: (req, res) => {
+    console.log(req.body);
+    _model.methods.updateUserUsuario(req.body)
+      .then(rows => {
+        res.send({
+          success: true,
+          message: 'Se han actualizado el nombre de usuario del usuario'
+        })
+      })
+      .catch(err => {
+        res.send({
+          success: false,
+          message: 'Error al actualizar el nombre de usuario del usuario'
+        });
+      })
+  },
+
   selectuserauth: (req, res) => {
     let data = {
       nombre: req.body.user,
