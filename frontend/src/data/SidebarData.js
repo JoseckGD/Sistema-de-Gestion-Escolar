@@ -49,8 +49,8 @@ export const buttonsDataAlumno = [
       icon: <CgNotes />,
    },
    {
-      titulo: 'Materias',
-      icon: <BsJournalBookmark />,
+      titulo: 'Perfil',
+      icon: <FiUser />,
    },
 ];
 

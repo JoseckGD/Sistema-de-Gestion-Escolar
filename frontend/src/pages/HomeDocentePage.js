@@ -121,17 +121,22 @@ export const HomeDocentePage = () => {
    }
 
    const handleModify = (data) => {
-      // console.log(data);
-      updateData('docentes', data);
-      updateData('UsuariosUsuario', data);
-      handleClose();
+      console.log(data);
 
-      // setDataToEdit(data);
-      // setTipoModal('Modificar');
-      // setTitleModal('usuario');
-      // setIsAddUser(false);
-      // setActive(false);
-      // setActive(true);
+      switch (user) {
+         case 'Calificaciones':
+            updateData('Notas', data);
+            break;
+
+         case 'Perfil':
+            updateData('docentes', data);
+            updateData('UsuariosUsuario', data);
+            break;
+
+         default: console.log('a');
+            break;
+      }
+      handleClose();
    }
 
    const handleAdd = (data) => {

@@ -42,7 +42,7 @@ export const HomeAdminPage = () => {
       allDocentes,
       createData,
       updateData,
-      // getOneData,
+      deleteData,
       authUser,
    } = useStateContext();
 
@@ -193,8 +193,10 @@ export const HomeAdminPage = () => {
       // console.log("closed");
    };
 
-   const handleDelete = () => {
+   const handleDelete = (data) => {
       console.log('Eliminar un usuario');
+      console.log(data);
+      deleteData('Usuarios', data.idUsuario);
       handleClose();
 
       // setTipoModal('Eliminar');
@@ -267,7 +269,7 @@ export const HomeAdminPage = () => {
 
                      <Row justify="center" align="center">
                         <Table
-                           title={user.toLowerCase()}
+                           title={user.toLowerCase() === 'materias' ? 'Tabla de materias' : user.toLowerCase()}
                            handleOpenModal={handleOpenModal}
                            eventoModify={handleModify}
                            eventoDelete={handleDelete}

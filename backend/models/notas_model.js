@@ -19,7 +19,7 @@ module.exports = {
       },
       selectNotaDocenteMateria: function (data) {
          return new Promise((resolve, reject) => {
-            con.query(`select alumnos.nombreCompleto, notas.parcial1, notas.parcial2, notas.parcial3
+            con.query(`select alumnos.nombreCompleto, notas.parcial1, notas.parcial2, notas.parcial3, notas.idNota
             from notas 
             inner join alumnos on notas.idAlumno = alumnos.idAlumno
             where notas.idMateria ='${data.id}' `, (err, rows) => {
@@ -82,9 +82,9 @@ module.exports = {
          })
       },
 
-      updateMateria: function (data) {
+      updateNota: function (data) {
          return new Promise((resolve, reject) => {
-            con.query(`UPDATE materias SET nombre='${data.nombre}', idDocente='${data.docente}' WHERE idMateria=${data.id}`, (err, rows) => {
+            con.query(`UPDATE notas SET parcial1='${data.parcial1}', parcial2='${data.parcial2}', parcial3='${data.parcial3}' WHERE idNota=${data.idNota}`, (err, rows) => {
                callback(err, rows, resolve, reject)
             });
          });

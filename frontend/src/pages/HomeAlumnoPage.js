@@ -11,6 +11,7 @@ import { Spacer, Card, Row, Text } from "@nextui-org/react";
 import { Table } from "../components/table/Table";
 import { MyModal } from "../components/Modal";
 import { useTitle } from "../hooks/useTitle";
+import { InfoUsuario } from "../components/InfoUsuario";
 
 export const HomeAlumnoPage = () => {
 
@@ -34,7 +35,15 @@ export const HomeAlumnoPage = () => {
 
    const [dataToEdit, setDataToEdit] = useState(null);
 
-   const { nameUser, alumno, notasMateriaAlumno, getOneData, alumnoMaterias, authUser } = useStateContext();
+   const {
+      nameUser,
+      alumno,
+      notasMateriaAlumno,
+      getOneData,
+      alumnoMaterias,
+      authUser,
+      updateData
+   } = useStateContext();
 
 
    useEffect(() => {
@@ -45,6 +54,7 @@ export const HomeAlumnoPage = () => {
    useEffect(() => {
       if (alumno !== null) {
          setCurrentAlumno(alumno[0]);
+         console.log(alumno[0]);
       }
    }, [alumno])
 
@@ -109,6 +119,8 @@ export const HomeAlumnoPage = () => {
 
    const handleModify = (data) => {
       console.log(data);
+      updateData('alumnos', data);
+      updateData('UsuariosUsuario', data);
       handleClose();
 
       // setDataToEdit(data);
@@ -165,7 +177,8 @@ export const HomeAlumnoPage = () => {
 
                      <Row justify="center" align="center">
                         <Text h3 color="white" css={{ m: 0 }} >
-                           Ver calificaciones
+                           {user === 'Calificaciones' && 'Ver calificaciones'}
+                           {user === 'Perfil' && 'Informacion'}
                         </Text>
                      </Row>
 
@@ -181,17 +194,20 @@ export const HomeAlumnoPage = () => {
                         ))}
                      </select> */}
 
-                     <Spacer y={1} />
+                     {user === 'Perfil' ?
+                        <InfoUsuario nombre={currentAlumno.nombreCompleto} handleModify={handleModify} />
+                        :
 
-                     <Row justify="center" align="center">
-                        <Table
-                           title='calificaciones'
-                           handleOpenModal={handleOpenModal}
-                           eventoModify={handleModify}
-                           eventoDelete={handleDelete}
-                           data={notasVer}
-                        />
-                     </Row>
+                        <Row justify="center" align="center">
+                           <Table
+                              title='calificaciones'
+                              handleOpenModal={handleOpenModal}
+                              eventoModify={handleModify}
+                              eventoDelete={handleDelete}
+                              data={notasVer}
+                           />
+                        </Row>
+                     }
                   </Card.Body>
                </Card>
             </>

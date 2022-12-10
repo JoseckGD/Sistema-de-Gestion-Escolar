@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { initialDataInfoDocente, labelDataInfoDocente } from '../data/DataInfoUser';
+import { initialDataInfoAlumno, initialDataInfoDocente, labelDataInfoAlumno, labelDataInfoDocente } from '../data/DataInfoUser';
 import { Button, Input, Spacer, Row } from "@nextui-org/react";
 import { useStateContext } from '../contexts/ContextProvider';
 
 export const InfoUsuario = ({ nombre, handleModify }) => {
 
-    const { rolUser, infoDocente, getOneData } = useStateContext();
+    const { rolUser, infoDocente, infoAlumno, getOneData } = useStateContext();
 
     useEffect(() => {
         getOneData(`selectInfo${rolUser}`, 'nombre', nombre);
@@ -14,11 +14,19 @@ export const InfoUsuario = ({ nombre, handleModify }) => {
 
     useEffect(() => {
         if (infoDocente !== null) {
-            // console.log(infoDocente);
+            // console.log(infoDocente); infoAlumno
             setForm(infoDocente[0]);
         }
         // eslint-disable-next-line
     }, [infoDocente])
+
+    useEffect(() => {
+        if (infoAlumno !== null) {
+            // console.log(infoDocente); infoAlumno
+            setForm(infoAlumno[0]);
+        }
+        // eslint-disable-next-line
+    }, [infoAlumno])
 
     const [form, setForm] = useState(null);
 
@@ -28,11 +36,8 @@ export const InfoUsuario = ({ nombre, handleModify }) => {
             case 'Docente':
                 return labelDataInfoDocente;
 
-            //    case 'calificacion':
-            //       return labelFormCalificacionModify;
-
-            //    case 'periodos':
-            //       return (tipo === 'Agregar' ? labelFormPeriodoAdd : labelFormPeriodoModify);
+            case 'Alumno':
+                return labelDataInfoAlumno;
 
             default: return null;
         }
@@ -45,11 +50,9 @@ export const InfoUsuario = ({ nombre, handleModify }) => {
             case 'Docente':
                 return initialDataInfoDocente;
 
-            //    case 'calificacion':
-            //       return initialFormCalificacionModify;
+            case 'Alumno':
+                return initialDataInfoAlumno;
 
-            //    case 'periodos':
-            //       return (tipo === 'Agregar' ? initialFormPeriodoAdd : initialFormPeriodoModify);
 
             default: return null;
         }

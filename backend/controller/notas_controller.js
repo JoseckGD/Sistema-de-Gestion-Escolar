@@ -116,4 +116,22 @@ module.exports = {
             })
          })
    },
+
+
+   updateNota: (req, res) => {
+      console.log(req.body);
+      _model_notas.methods.updateNota(req.body)
+         .then(rows => {
+            res.send({
+               success: true,
+               message: 'Se han actualizado las notas del alumno'
+            })
+         })
+         .catch(err => {
+            res.send({
+               success: false,
+               message: 'Error al actualizar las notas del alumno'
+            });
+         })
+   },
 }

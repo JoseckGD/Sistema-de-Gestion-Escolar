@@ -49,6 +49,7 @@ export const LoginForm = ({ rol }) => {
       }, 5000);
       return;
     } else {
+      console.log(form);
       setNameUser(form.user);
       localStorage.setItem('nameUser', form.user);
       fetchAJAX({

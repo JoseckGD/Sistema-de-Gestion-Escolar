@@ -45,7 +45,7 @@ export const initialFormCalificacionModify = {
    parcial1: "",
    parcial2: "",
    parcial3: "",
-   final: "",
+   // final: "",
 };
 
 export const labelFormCalificacionModify = {
@@ -53,7 +53,7 @@ export const labelFormCalificacionModify = {
    'Parcial 1': "Escribe la calificaion del parcial 1",
    'Parcial 2': "Escribe la calificaion del parcial 2",
    'Parcial 3': "Escribe la calificaion del parcial 3",
-   'Calificación final': "Calificacion final",
+   // 'Calificación final': "Calificacion final",
 };
 
 
@@ -94,7 +94,7 @@ export const initialFormMateriaModify = {
    idMateria: "",
    nombre: "",
    nombreCompleto: "",
-   idPeriodo:"",
+   idPeriodo: "",
 };
 
 export const labelFormMateriaModify = {

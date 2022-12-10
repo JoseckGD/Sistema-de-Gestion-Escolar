@@ -17,9 +17,9 @@ export const TableRow = ({ title, el, eventoModify, eventoDelete, index, handleO
       Object.values(el).map((campo, index) => (
          (title === 'calificacion' || title === 'calificaciones') && (
             title === 'calificaciones' ?
-               index >= 2 && (calificacionFinal += parseFloat(campo))
+               (index >= 2 && index < 5) && (calificacionFinal += parseFloat(campo))
                :
-               index >= 1 && (calificacionFinal += parseFloat(campo))
+               (index >= 1 && index < 4) && (calificacionFinal += parseFloat(campo))
          ))
       )
 
@@ -34,7 +34,18 @@ export const TableRow = ({ title, el, eventoModify, eventoDelete, index, handleO
       <tr key={Math.random()}>
          <TableD elemento={index + 1} key={Math.random()} />
          {Object.values(el).map((campo, index) => (
-            <TableD key={`${id}_${campo}_${index}`} elemento={campo} />
+
+            (title === 'calificacion' || title === 'calificaciones') ? (
+               title === 'calificacion' ? (
+
+                  index < 4 &&
+                  <TableD key={`${id}_${campo}_${index}`} elemento={campo} />
+               ) :
+                  <TableD key={`${id}_${campo}_${index}`} elemento={campo} />
+
+            ) :
+               <TableD key={`${id}_${campo}_${index}`} elemento={campo} />
+
          ))}
          {(title === 'calificacion' || title === 'calificaciones') && (
             <TableD elemento={`${getPromedioAlumno()}`} key={Math.random()} />
@@ -50,7 +61,8 @@ export const TableRow = ({ title, el, eventoModify, eventoDelete, index, handleO
                      auto
                      icon={<FiEdit />}
                      // onPress={() => eventoModify(el)}
-                     onPress={() => handleOpenModal('Modificar', title, (title === 'calificacion' ? { ...el, 'calificacionFinal': `${getPromedioAlumno()}` } : el))}
+                     onPress={() => handleOpenModal('Modificar', title, el)}
+                  // onPress={() => handleOpenModal('Modificar', title, (title === 'calificacion' ? { ...el, 'calificacionFinal': `${getPromedioAlumno()}` } : el))}
                   />
                </Tooltip>
             </td>

@@ -18,6 +18,18 @@ module.exports = {
             })
          })
       },
+
+      selectInfoAlumno: function (nombre) {
+         return new Promise((resolve, reject) => {
+            con.query(`select alumnos.nombreCompleto, alumnos.telefono, alumnos.correo, usuarios.usuario, alumnos.idAlumno, usuarios.idUsuario
+            from alumnos
+            inner join usuarios on usuarios.nombre=alumnos.nombreCompleto 
+            and alumnos.nombreCompleto  ='${nombre}' `, (err, rows) => {
+               callback(err, rows, resolve, reject)
+            })
+         })
+      },
+
       selectAlumnoMateria: function (id) {
          return new Promise((resolve, reject) => {
             con.query(`SELECT * FROM docentes WHERE idMateria =${id} `, (err, rows) => {

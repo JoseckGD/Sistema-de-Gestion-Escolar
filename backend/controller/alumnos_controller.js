@@ -116,4 +116,24 @@ module.exports = {
       })
   },
 
+  selectInfoAlumno: (req, res) => {
+    let nombre = req.params.nombre;
+    console.log('nombre: ', nombre);
+    _model_alumnos.methods.selectInfoAlumno(nombre)
+      .then(rows => {
+        res.send({
+          success: true,
+          message: 'La informacion del alumno han sido obtenida',
+          result: rows,
+        })
+      })
+      .catch(err => {
+        res.send({
+          success: false,
+          message: 'Error al obtener la informacion del alumno',
+          result: err
+        })
+      })
+  },
+
 }

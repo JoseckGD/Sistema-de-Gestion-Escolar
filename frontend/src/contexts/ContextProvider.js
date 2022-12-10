@@ -42,6 +42,7 @@ export const ContextProvider = ({ children }) => {
 
   const [allAlumnos, setAllAlumnos] = useState(null);
   const [alumno, setAlumno] = useState(null);
+  const [infoAlumno, setInfoAlumno] = useState(null);
 
   const [notasMateriaDocente, setNotasMateriaDocente] = useState(null);
   const [notasMateriaAlumno, setNotasMateriaAlumno] = useState(null);
@@ -145,6 +146,10 @@ export const ContextProvider = ({ children }) => {
 
           case 'selectInfoDocente':
             setInfoDocente(json.result);
+            break;
+
+          case 'selectInfoAlumno':
+            setInfoAlumno(json.result);
             break;
 
           case 'selectMateria':
@@ -304,6 +309,25 @@ export const ContextProvider = ({ children }) => {
     fetchAJAX(options)
   }
 
+  const deleteData = (tabla, id) => {
+
+    let options = {
+      url: `${rutaBase}delete${tabla}/id=${id}`,
+      settings: {
+        method: "DELETE",
+      },
+      resSuccess: (json => {
+        console.log(json)
+      }),
+      resError: (err => {
+        console.log("Huvo un Error al Eliminar el Usuario", err)
+      }),
+
+    };
+
+    fetchAJAX(options)
+  }
+
 
   // crear un Usuario
   const createUser = (data) => {
@@ -365,27 +389,6 @@ export const ContextProvider = ({ children }) => {
     fetchAJAX(options)
   }
 
-  //Eliminar Usuario
-  const deleteData = (data) => {
-
-    let endpoint = `http://localhost:5051/deleteuser/${data.id}`;
-
-    let options = {
-      url: endpoint,
-      settings: {
-        method: "DELETE",
-      },
-      resSuccess: (json => {
-        console.log(json)
-      }),
-      resError: (err => {
-        console.log("Huvo un Error al Eliminar el Usuario", err)
-      }),
-
-    };
-
-    fetchAJAX(options)
-  }
 
 
   //Actualizar dispositivo
@@ -486,10 +489,10 @@ export const ContextProvider = ({ children }) => {
     allPeriodos,
     allMaterias,
     allDocentes,
-    updateData,
     allDocenteMaterias,
     infoDocente,
-    updateOneData
+    updateOneData,
+    infoAlumno
   };
 
   return (
