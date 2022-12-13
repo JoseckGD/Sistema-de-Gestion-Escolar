@@ -1,12 +1,44 @@
-import { Modal, Button, Text, Input, Row } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { initialFormAlumnoAdd, initialFormAlumnoModify, initialFormCalificacionModify, initialFormDocenteAdd, initialFormDocenteModify, initialFormMateriaAdd, initialFormMateriaModify, initialFormPeriodoAdd, initialFormPeriodoModify, initialFormUserAdd, initialFormUserModify, labelFormAlumnoAdd, labelFormAlumnoModify, labelFormCalificacionModify, labelFormDocenteAdd, labelFormDocenteModify, labelFormMateriaAdd, labelFormMateriaModify, labelFormPeriodoAdd, labelFormPeriodoModify, labelFormUserAdd, labelFormUserModify } from "../data/DataFormsModal";
+import { initialFormAlumnoAdd, initialFormAlumnoModify, initialFormCalificacionModify, initialFormDocenteAdd, initialFormDocenteModify, initialFormMateriaAdd, initialFormMateriaModify, initialFormPeriodoAdd, initialFormPeriodoModify, initialFormUserAdd, initialFormUserModify, labelFormAlumnoAdd, labelFormAlumnoModify, labelFormCalificacionModify, labelFormDocenteAdd, labelFormDocenteModify, labelFormMateriaAdd, labelFormMateriaModify, labelFormPeriodoAdd, labelFormPeriodoModify, labelFormUserAdd, labelFormUserModify, typeInputForm_AlumnoAdd, typeInputForm_DocenteAdd, typeInputForm_UserAdd } from "../data/DataFormsModal";
 import { InputSelect } from "./InputSelect";
-
+let isValidateEmail = true;
 export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, handleDelete, data, title, tipo }) => {
+
+   const validateForm = () => {
+      // console.log(form);
+      let isValidate = true;
+      Object.values(form).map((input) => (
+         input !== null &&
+         (input.length === 0 || /^\s+$/.test(input)) && (isValidate = false)
+      ))
+
+      if (!isValidate) {
+         alert('Datos incompletos')
+      } else {
+
+
+         if (!isValidateEmail) {
+            alert('Correo no valido')
+            return false;
+         }
+      }
+
+
+      return isValidate;
+   }
+
+   const validateEmail = (value) => {
+      return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+   };
 
    const handleChange = (e) => {
       // console.log(e.target.name, e.target.value)
+
+      if (e.target.name === 'correo') {
+         isValidateEmail = validateEmail(e.target.value)
+      }
+
       setForm({
          ...form,
          [e.target.name]: e.target.value,
@@ -68,6 +100,22 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
       }
    }
 
+   const getTypeInputForm = () => {
+      // console.log(title);
+      switch (title) {
+         case 'usuarios':
+            return tipo === 'Agregar' ? typeInputForm_UserAdd : 'text';
+
+         case 'docentes':
+            return typeInputForm_DocenteAdd;
+
+         case 'alumnos':
+            return typeInputForm_AlumnoAdd;
+
+         default: return 'password';
+      }
+   }
+
    const [form, setForm] = useState(getInitialForm());
 
    useEffect(() => {
@@ -86,7 +134,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
          if (tipo === 'Agregar' && !data) {
             setForm(getInitialForm())
          } else {
-               setForm(getInitialForm())
+            setForm(getInitialForm())
          }
       }
       // eslint-disable-next-line
@@ -184,12 +232,56 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                            index < Object.keys(getInitialForm()).length - 1 &&
 
                            <Input
-                              type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : 'text'}
+                              type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : getTypeInputForm()[index]}
                               label={Object.keys(getLabel())[index]}
-                              // initialValue={form !== null && Object.values(form)[index]}
-                              // label={Object.keys(labelFormUserAdd)[index]}
                               name={campo}
                               value={data !== null && Object.values(data)[index]}
+                              onChange={(e) => handleChange(e)}
+                              key={index}
+                              clearable
+                              status="primary"
+                              color="primary"
+                              fullWidth
+                              size="md"
+                              placeholder={Object.values(getLabel())[index]}
+                           />
+                        )))}
+                  </>
+               ) : (
+                  tipo === 'Agregar' && (
+                     title === 'materias' ? (
+                        <>
+                           <Input
+                              type={'text'}
+                              label={Object.keys(getLabel())[0]}
+                              // label={Object.keys(labelFormUserAdd)[index]}
+                              name={'nombre'}
+                              value={form && form.nombre}
+                              onChange={(e) => handleChange(e)}
+                              key={0}
+                              clearable
+                              status="primary"
+                              fullWidth
+                              color="primary"
+                              size="md"
+                              placeholder={Object.values(getLabel())[0]}
+                           />
+                           <Text h6 color="primary">Asignar un docente</Text>
+                           <InputSelect tipo='Docente' handleChange={handleChange} />
+                           <Text h6 color="primary">Asignar un periodo</Text>
+                           <InputSelect tipo='Periodo' handleChange={handleChange} />
+                        </>
+                     ) :
+                        Object.keys(getInitialForm()).map((campo, index) => (
+                           // Object.keys(initialFormUserAdd).map((campo, index) => (Object.keys(object1).length
+                           index < Object.keys(getInitialForm()).length - 1 &&
+                           // index < 5 &&
+                           <Input
+                              type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : getTypeInputForm()[index]}
+                              label={Object.keys(getLabel())[index]}
+                              // label={Object.keys(labelFormUserAdd)[index]}
+                              name={campo}
+                              // value={Object.values(form)[index] || ''}
                               onChange={(e) => handleChange(e)}
                               key={index}
                               clearable
@@ -201,56 +293,8 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                               placeholder={Object.values(getLabel())[index]}
                            // placeholder={Object.values(labelFormUserAdd)[index]}
                            />
-                        )))}
-                  </>
-               ) : (
-                  tipo === 'Agregar' && (
-                     title ==='materias'?(
-                     <>
-                        <Input
-                           type={'text'}
-                           label={Object.keys(getLabel())[0]}
-                           // label={Object.keys(labelFormUserAdd)[index]}
-                           name={'nombre'}
-                           value={form&&form.nombre}
-                           onChange={(e) => handleChange(e)}
-                           key={0}
-                           clearable
-                           status="primary"
-                           fullWidth
-                           color="primary"
-                           size="md"
-                           placeholder={Object.values(getLabel())[0]}
-                        />
-                           <Text h6 color="primary">Asignar un docente</Text>
-                           <InputSelect tipo='Docente' handleChange={handleChange}/>
-                           <Text h6 color="primary">Asignar un periodo</Text>
-                           <InputSelect tipo='Periodo' handleChange={handleChange}/>
-                     </>
-                     ):
-                        Object.keys(getInitialForm()).map((campo, index) => (
-                           // Object.keys(initialFormUserAdd).map((campo, index) => (Object.keys(object1).length
-                        index < Object.keys(getInitialForm()).length - 1 &&
-                        // index < 5 &&
-                        <Input
-                           type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : 'text'}
-                           label={Object.keys(getLabel())[index]}
-                           // label={Object.keys(labelFormUserAdd)[index]}
-                           name={campo}
-                           // value={Object.values(form)[index] || ''}
-                           onChange={(e) => handleChange(e)}
-                           key={index}
-                           clearable
-                           status="primary"
-                           // bordered
-                           fullWidth
-                           color="primary"
-                           size="md"
-                           placeholder={Object.values(getLabel())[index]}
-                           // placeholder={Object.values(labelFormUserAdd)[index]}
-                           />
-                           )))
-                     
+                        )))
+
                )
                }
             </Modal.Body>
@@ -261,7 +305,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                      <Button auto flat color="error" onPress={handleClose}>
                         Cancelar
                      </Button>
-                     <Button auto onPress={() => handleAdd(form)}>
+                     <Button auto onPress={() => validateForm() && handleAdd(form)}>
                         Agregar
                      </Button>
                   </>
@@ -272,7 +316,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                      <Button auto flat color="error" onPress={handleClose}>
                         Cancelar
                      </Button>
-                     <Button auto onPress={() => handleModify(form)}>
+                     <Button auto onPress={() => validateForm() && handleModify(form)}>
                         Modifcar
                      </Button>
                   </>

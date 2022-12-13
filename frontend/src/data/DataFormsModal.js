@@ -8,6 +8,15 @@ export const initialFormUserAdd = {
    tipoUsuario: "",
    id: null,
 };
+
+export const typeInputForm_UserAdd = [
+   'text',
+   'text',
+   'password',
+   'password',
+   'text'
+]
+
 export const dataFormUserAdd = {
    nombre: "",
    usuario: "",
@@ -48,6 +57,13 @@ export const initialFormCalificacionModify = {
    // final: "",
 };
 
+export const typeInputForm_CalificacionModify = [
+   'text',
+   'number',
+   'number',
+   'number',
+]
+
 export const labelFormCalificacionModify = {
    'Nombre del alumno': "Escribe el nombre del alumno",
    'Parcial 1': "Escribe la calificaion del parcial 1",
@@ -76,8 +92,14 @@ export const initialFormPeriodoAdd = {
    periodo: "",
    fechaInicio: "",
    fechaTermino: "",
-   idPeriodo: "",
+   idPeriodo: null,
 };
+
+export const typeInputForm_PeriodoAdd = [
+   'text',
+   'date',
+   'date',
+]
 
 export const labelFormPeriodoAdd = {
    'Periodo': "Escribe el periodo",
@@ -96,7 +118,6 @@ export const initialFormMateriaModify = {
    nombreCompleto: "",
    idPeriodo: "",
 };
-
 export const labelFormMateriaModify = {
    'ID Materia': "Escribe el id de la materia",
    'Materia': "Escribe el nombre de la materia",
@@ -145,8 +166,15 @@ export const initialFormAlumnoAdd = {
    telefono: "",
    correo: "",
    genero: "",
-   idAlumno: "",
+   idAlumno: null,
 };
+
+export const typeInputForm_AlumnoAdd = [
+   'text',
+   'number',
+   'text',
+   'text',
+]
 
 export const dataFormAlumnoAdd = {
    nombreCompleto: "",
@@ -186,9 +214,13 @@ export const initialFormDocenteAdd = {
    nombreCompleto: "",
    telefono: "",
    correo: "",
-   idAlumno: "",
+   idAlumno: null,
 };
-
+export const typeInputForm_DocenteAdd = [
+   'text',
+   'number',
+   'text',
+]
 export const dataFormDocenteAdd = {
    nombreCompleto: "",
    telefono: "",
