@@ -95,7 +95,7 @@ export const InfoUsuario = ({ nombre, handleModify }) => {
                 </Button>
                 <Spacer y={1} />
 
-                <Button auto shadow onPress={() => handleModify(form)}>
+                <Button auto shadow color='warning' onPress={() => handleModify(form)}>
                     Actualizar tu Informacion
                 </Button>
             </Row>

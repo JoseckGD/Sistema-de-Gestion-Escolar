@@ -10,7 +10,7 @@ export const Sidebar2 = ({ handleUser, user, }) => {
    const { rolUser, handleCloseSesion } = useStateContext();
    // console.log(isUser);
    return (
-      <Card variant="bordered" className='Sidebar' css={{ $$cardColor: '#0072f560', }}>
+      <Card variant="bordered" className='Sidebar' css={{ $$cardColor: '#131d62', }}>
          <Card.Body className='content'>
 
             <Text h2 className='txt' weight="bold">
@@ -75,18 +75,12 @@ export const Sidebar2 = ({ handleUser, user, }) => {
                }
 
             </div>
-            <div className='btn-salir'>
-               {rolUser !== 'rol' &&
-                  <div className='btn' onClick={() => handleCloseSesion()}>
-                     <div className='icon-btn'>
-                        <IoMdExit />
-                     </div>
-                     Salir
-                  </div>
-               }
-            </div>
-            {/* </div>
-      </section> */}
+            {rolUser !== 'rol' &&
+               <Button shadow icon={<IoMdExit />} color="error" size="lg"
+                  key={'salir'} className='btn-salir' onPress={() => handleCloseSesion()}>
+                  Salir
+               </Button>
+            }
          </Card.Body>
       </Card>
    )

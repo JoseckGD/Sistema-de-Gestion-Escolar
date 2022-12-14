@@ -255,7 +255,7 @@ export const HomeAdminPage = () => {
                   tipo={tipoModal}
                />
 
-               <Card css={{ $$cardColor: '#0072f560', m: '1rem 0' }} variant="bordered" className='main'>
+               <Card css={{ $$cardColor: '#131d62', m: '1rem 0' }} variant="bordered" className='main'>
                   <Card.Body>
 
                      <Row justify="space-between" align="center">
@@ -265,7 +265,7 @@ export const HomeAdminPage = () => {
                         <Tooltip content={`Agregar un ${user}`}>
                            <Button
                               shadow
-                              color="primary"
+                              color="warning"
                               auto
                               icon={<AiOutlineUserAdd />}
                               onPress={() => handleOpenModal('Agregar', `${user.toLowerCase()}`, null)}

@@ -12,9 +12,9 @@ import { createTheme } from "@nextui-org/react"
 const darkTheme = createTheme({
   type: 'dark',
 })
-// const lightTheme = createTheme({
-//   type: 'light',
-// })
+const lightTheme = createTheme({
+  type: 'light',
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

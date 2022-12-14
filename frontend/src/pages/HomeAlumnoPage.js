@@ -172,7 +172,7 @@ export const HomeAlumnoPage = () => {
                   tipo={tipoModal}
                />
 
-               <Card css={{ $$cardColor: '#0072f560', m: '1rem 0' }} variant="bordered" className='main'>
+               <Card css={{ $$cardColor: '#131d62', m: '1rem 0' }} variant="bordered" className='main'>
                   <Card.Body>
 
                      <Row justify="center" align="center">
