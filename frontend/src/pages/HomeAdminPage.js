@@ -13,7 +13,7 @@ import { Card, Row, Text, Tooltip, Button } from "@nextui-org/react";
 import { Table } from "../components/table/Table";
 import { MyModal } from "../components/Modal";
 import { useTitle } from "../hooks/useTitle";
-import { dataFormAlumnoAdd, dataFormDocenteAdd } from "../data/DataFormsModal";
+import { dataFormAlumnoAdd, dataFormDocenteAdd, dataFormUserAdd } from "../data/DataFormsModal";
 
 let rol = '';
 
@@ -102,7 +102,7 @@ export const HomeAdminPage = () => {
    }
 
    const handleAdd = (data) => {
-      let matricula = 0;
+      let matricula = 0, repetido = false;
       // console.log(`Agregar un registro en ${user}`, data);
       switch (user) {
 
@@ -124,14 +124,14 @@ export const HomeAdminPage = () => {
             break;
 
          case 'Docentes':
-            // createData('Usuarios', ({
-            //    ...dataFormUserAdd,
-            //    'nombre': `${data.nombreCompleto}`,
-            //    'usuario': `${data.nombreCompleto}`,
-            //    'contrasena': `${data.nombreCompleto}`,
-            //    'tipoUsuario': `Docente`,
-            //    'id': null
-            // }))
+            createData('Usuarios', ({
+               ...dataFormUserAdd,
+               'nombre': `${data.nombreCompleto}`,
+               'usuario': `${data.nombreCompleto}`,
+               'contrasena': `${data.nombreCompleto}`,
+               'tipoUsuario': `Docente`,
+               'id': null
+            }))
             matricula = Date.now().toString();
             data.idDocente = parseInt(matricula.substring(0, 10));
             console.log(data);
@@ -140,14 +140,14 @@ export const HomeAdminPage = () => {
             break;
 
          case 'Alumnos':
-            // createData('Usuarios', ({
-            //    ...dataFormUserAdd,
-            //    'nombre': `${data.nombreCompleto}`,
-            //    'usuario': `${data.nombreCompleto}`,
-            //    'contrasena': `${data.nombreCompleto}`,
-            //    'tipoUsuario': `Alumno`,
-            //    'id': null
-            // }))
+            createData('Usuarios', ({
+               ...dataFormUserAdd,
+               'nombre': `${data.nombreCompleto}`,
+               'usuario': `${data.nombreCompleto}`,
+               'contrasena': `${data.nombreCompleto}`,
+               'tipoUsuario': `Alumno`,
+               'id': null
+            }))
             matricula = Date.now().toString();
             data.idAlumno = parseInt(matricula.substring(0, 10));
             console.log(data);
@@ -156,8 +156,17 @@ export const HomeAdminPage = () => {
             break;
 
          case 'Periodos':
-            createData(user, data);
-            handleClose();
+            // console.log(periodos);
+            periodos.map((el) => {
+               repetido = validatePeriodo(el, data)
+            })
+            if (repetido) {
+               alert('Escoje otro periodo')
+            } else {
+               // console.log('a');
+               createData(user, data);
+               handleClose();
+            }
             break;
 
          case 'Materias':
@@ -192,6 +201,39 @@ export const HomeAdminPage = () => {
       // setDataToEdit(null);
       // handleClose();
       // }
+   }
+
+   const validatePeriodo = (periodoA, periodoCheck) => {
+
+      let fI = new Date(periodoA.fechaInicio), fT = new Date(periodoA.fechaTermino),
+         faI = new Date(periodoCheck.fechaInicio), faT = new Date(periodoCheck.fechaTermino);
+
+      if (periodoA.periodo === periodoCheck.periodo) {
+         return true;
+      }
+
+      if (periodoA.fechaInicio === periodoCheck.fechaInicio) {
+         return true;
+      }
+
+      if (periodoA.fechaTermino === periodoCheck.fechaTermino) {
+         return true;
+      }
+
+      if ((fI.getTime() <= faI.getTime() && faI.getTime() <= fT.getTime()) ||
+         (fI.getTime() <= faT.getTime() && faT.getTime() <= fT.getTime())) {
+         return true;
+      }
+
+      if (faI === faT) {
+         return true;
+      }
+
+      if (faI >= faT) {
+         return true;
+      }
+
+      return false;
    }
 
    const handleClose = () => {
