@@ -66,7 +66,7 @@ module.exports = {
 
       insertarAlumnos: function (data) {
          return new Promise((resolve, reject) => {
-            con.query(`INSERT INTO alumnos (nombreCompleto, telefono, correo, genero) VALUES ( '${data.nombreCompleto}', '${data.telefono}', '${data.correo}', '${data.genero}')`, (err, rows) => {
+            con.query(`INSERT INTO alumnos (idAlumno, nombreCompleto, telefono, correo, genero) VALUES ( ${data.idAlumno}, '${data.nombreCompleto}', '${data.telefono}', '${data.correo}', '${data.genero}')`, (err, rows) => {
                callback(err, rows, resolve, reject)
             })
          })

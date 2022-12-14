@@ -153,7 +153,7 @@ export const initialFormAlumnoModify = {
 };
 
 export const labelFormAlumnoModify = {
-   'ID Alumno': "Escribe el id del alumno",
+   'Matricula': "Escribe el id del alumno",
    'Nombre': "Escribe el nombre del alumno",
    'Telefono': "Escribe el telefono del alumno",
    'Correo': "Escribe el correo del alumno",
@@ -189,7 +189,7 @@ export const labelFormAlumnoAdd = {
    'Telefono': "Escribe el telefono del alumno",
    'Correo': "Escribe el correo del alumno",
    'Genero': "Escribe el genero del alumno",
-   'ID Alumno': "Escribe el id del alumno",
+   'Matricula': "Escribe el id del alumno",
 };
 
 
@@ -203,7 +203,7 @@ export const initialFormDocenteModify = {
 };
 
 export const labelFormDocenteModify = {
-   'ID Docente': "Escribe el id del docente",
+   'Matricula': "Escribe el id del docente",
    'Nombre': "Escribe el nombre del docente",
    'Telefono': "Escribe el telefono del docente",
    'Correo': "Escribe el correo del docente",
@@ -214,7 +214,7 @@ export const initialFormDocenteAdd = {
    nombreCompleto: "",
    telefono: "",
    correo: "",
-   idAlumno: null,
+   idDocente: null,
 };
 export const typeInputForm_DocenteAdd = [
    'text',
@@ -225,12 +225,12 @@ export const dataFormDocenteAdd = {
    nombreCompleto: "",
    telefono: "",
    correo: "",
-   idAlumno: null,
+   idDocente: null,
 };
 
 export const labelFormDocenteAdd = {
    'Nombre': "Escribe el nombre del docente",
    'Telefono': "Escribe el telefono del docente",
    'Correo': "Escribe el correo del docente",
-   'ID Alumno': "Escribe el id del docente",
+   'Matricula': "Escribe el id del docente",
 };

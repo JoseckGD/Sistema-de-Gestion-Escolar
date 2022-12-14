@@ -13,7 +13,7 @@ import { Card, Row, Text, Tooltip, Button } from "@nextui-org/react";
 import { Table } from "../components/table/Table";
 import { MyModal } from "../components/Modal";
 import { useTitle } from "../hooks/useTitle";
-import { dataFormAlumnoAdd, dataFormDocenteAdd, dataFormUserAdd } from "../data/DataFormsModal";
+import { dataFormAlumnoAdd, dataFormDocenteAdd } from "../data/DataFormsModal";
 
 let rol = '';
 
@@ -102,9 +102,10 @@ export const HomeAdminPage = () => {
    }
 
    const handleAdd = (data) => {
-      // console.log(data);
+      let matricula = 0;
       // console.log(`Agregar un registro en ${user}`, data);
       switch (user) {
+
          case 'Usuarios':
             if (Object.prototype.hasOwnProperty.call(data, 'idAlumno') || Object.prototype.hasOwnProperty.call(data, 'idDocente')) {
                console.log(`${rol}s agregado`);
@@ -123,27 +124,33 @@ export const HomeAdminPage = () => {
             break;
 
          case 'Docentes':
-            createData('Usuarios', ({
-               ...dataFormUserAdd,
-               'nombre': `${data.nombreCompleto}`,
-               'usuario': `${data.nombreCompleto}`,
-               'contrasena': `${data.nombreCompleto}`,
-               'tipoUsuario': `Docente`,
-               'id': null
-            }))
+            // createData('Usuarios', ({
+            //    ...dataFormUserAdd,
+            //    'nombre': `${data.nombreCompleto}`,
+            //    'usuario': `${data.nombreCompleto}`,
+            //    'contrasena': `${data.nombreCompleto}`,
+            //    'tipoUsuario': `Docente`,
+            //    'id': null
+            // }))
+            matricula = Date.now().toString();
+            data.idDocente = parseInt(matricula.substring(0, 10));
+            console.log(data);
             createData(user, data);
             handleClose();
             break;
 
          case 'Alumnos':
-            createData('Usuarios', ({
-               ...dataFormUserAdd,
-               'nombre': `${data.nombreCompleto}`,
-               'usuario': `${data.nombreCompleto}`,
-               'contrasena': `${data.nombreCompleto}`,
-               'tipoUsuario': `Alumno`,
-               'id': null
-            }))
+            // createData('Usuarios', ({
+            //    ...dataFormUserAdd,
+            //    'nombre': `${data.nombreCompleto}`,
+            //    'usuario': `${data.nombreCompleto}`,
+            //    'contrasena': `${data.nombreCompleto}`,
+            //    'tipoUsuario': `Alumno`,
+            //    'id': null
+            // }))
+            matricula = Date.now().toString();
+            data.idAlumno = parseInt(matricula.substring(0, 10));
+            console.log(data);
             createData(user, data);
             handleClose();
             break;

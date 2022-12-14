@@ -57,7 +57,7 @@ export const dataTables = [
          },
 
          {
-            name: 'ID Alumno',
+            name: 'Matricula',
          },
 
          {
@@ -160,7 +160,7 @@ export const dataTables = [
          },
 
          {
-            name: 'ID Docente',
+            name: 'Matricula',
          },
 
          {
