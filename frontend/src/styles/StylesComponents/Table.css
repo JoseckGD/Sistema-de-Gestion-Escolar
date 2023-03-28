@@ -1,0 +1,48 @@
+.tabla {
+  width: calc(100% - 2em);
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin-top: 1em;
+}
+
+.tabla caption {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.tabla table {
+  background-color: aliceblue;
+  width: 100%;
+  height: auto;
+  overflow-x: hidden !important;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+table tbody td {
+  color: black;
+  text-align: center;
+}
+
+table thead {
+  color: black;
+  height: 2.5rem;
+  text-align: center;
+
+}
+
+tbody tr:nth-child(odd) {
+  background-color: rgb(228, 228, 228);
+}
+
+table .td-modificar button {
+  margin: 0.4rem auto;
+}
+
+table .td-eliminar button {
+  margin: 0.4rem auto;
+}
