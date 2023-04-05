@@ -253,6 +253,27 @@ export const HomeDocentePage = () => {
                            </Row>
                         </>
                      }
+
+                     {user === 'Perfil' ?
+                        <InfoUsuario nombre={currentDocente.nombreCompleto} handleModify={handleModify} />
+                        :
+                        <>
+                           <Spacer y={1} />
+                           {user === 'Calificaciones' &&
+                              <>
+                                 <Text h3 color="white" css={{ m: 0 }} >
+                                    Seleccion un alumno
+                                 </Text>
+                                 <select style={{ color: '#000' }} defaultValue={''} name='materias' id="" onChange={handleChange}>
+                                    <option value="" >Selecionar...</option>
+                                    {materiasDocente !== null && materiasDocente.map((el) => (
+                                       <option value={el.nombre} key={el.idMateria}>{el.nombre} </option>
+                                    ))}
+                                 </select>
+                              </>
+                           }
+                        </>
+                     }
                   </Card.Body>
                </Card>
             </>

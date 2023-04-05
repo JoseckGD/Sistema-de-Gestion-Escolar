@@ -18,8 +18,15 @@ export const HomeAlumnoPage = () => {
    const [user, setUser] = useState('Calificaciones');
 
    const handleUser = (u) => {
-      setUser(u);
-   }
+      if (u === "Generar Boleta") {
+        // Abrir archivo PDF
+        window.open('https://drive.google.com/file/d/1Jq-rPNYLmPhp-nDJEJjoi1neGUz_9fIM/view?usp=sharing', '_blank');
+      } else {
+        setUser(u);
+      }
+    }
+    
+    
 
    useTitle('Alumno');
 
@@ -179,6 +186,9 @@ export const HomeAlumnoPage = () => {
                         <Text h3 color="white" css={{ m: 0 }} >
                            {user === 'Calificaciones' && 'Ver calificaciones'}
                            {user === 'Perfil' && 'Informacion'}
+                           
+                           
+                           
                         </Text>
                      </Row>
 
@@ -208,6 +218,7 @@ export const HomeAlumnoPage = () => {
                            />
                         </Row>
                      }
+
                   </Card.Body>
                </Card>
             </>

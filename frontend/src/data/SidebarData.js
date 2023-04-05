@@ -52,6 +52,10 @@ export const buttonsDataAlumno = [
       titulo: 'Perfil',
       icon: <FiUser />,
    },
+   {
+      titulo: 'Generar Boleta',
+     
+   },
 ];
 
 export const buttonsDataDocente = [
