@@ -234,3 +234,41 @@ export const labelFormDocenteAdd = {
    'Correo': "Escribe el correo del docente",
    'Matricula': "Escribe el id del docente",
 };
+
+//DATA del formulario de MODIFICAR un grupo=========================================
+export const initialFormGrupoModify = {
+   idGrupo: "",
+   idDocente: "",
+   idMateria: "",
+   idPeriodo: "",
+   alumnos: "",
+};
+
+export const labelFormGrupoModify = {
+   'ID Grupo': "Escribe el id del grupo",
+   'ID Docente': "Escribe el id del docente a cargo del grupo",
+   'ID Materia': "Escribe el id de la materia del grupo",
+   'ID Periodo': "Escribe el id del periodo",
+   'Alumno': "Escoje los alumnos del grupo",
+};
+//DATA del formulario de AGREGAR un periodo=========================================
+export const initialFormGrupoAdd = {
+   idDocente: "",
+   idMateria: "",
+   idPeriodo: "",
+   alumnos: "",
+};
+
+export const typeInputForm_GrupoAdd = [
+   'number',
+   'number',
+   'number',
+   'text',
+]
+
+export const labelFormGrupoAdd = {
+   'Docente': "Escribe el docente",
+   'Materia': "Escribe la materia",
+   'Periodo': "Escribe el periodo",
+   'alumnos': "Escribe el alumnos",
+};

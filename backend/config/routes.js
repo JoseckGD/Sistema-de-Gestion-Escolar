@@ -4,10 +4,16 @@ const Router = express.Router();
 const session = require('express-session');
 const { selectAllMaterias, selectMateria, selectMateriaDocente, selectMateriaID, insertarMaterias, selectAllMateriasDocente } = require('../controller/materias_controller.js');
 const { selectAllDocentes, selectDocente, insertarDocentes, updateDocentes, selectInfoDocente } = require('../controller/docentes_controller.js');
-const { selectAllNotas, selectNotaDocente, selectNotaAlumno, selectNotaMateria, selectNotaDocenteMateria, selectNotaAlumnoMateria, updateNota } = require('../controller/notas_controller.js');
+const { selectAllNotas, selectNotaDocente, selectNotaAlumno, selectNotaMateria, selectNotaDocenteMateria, selectNotaAlumnoMateria, updateNota, insertarNotas } = require('../controller/notas_controller.js');
 const { selectAllAlumnos, selectAlumno, insertarAlumnos, updateAlumnos, selectInfoAlumno } = require('../controller/alumnos_controller.js');
 const { selectAllPeriodos, selectPeriodo, insertarPeriodos, updatePeriodos } = require('../controller/periodos_controller.js');
 const { selectuserauth } = require('../controller/controller.js');
+const { selectAllGrupos, selectGrupo, insertarGrupos } = require('../controller/grupos_controller.js');
+
+//RUTAS PARA LOS GRUPOS
+Router.get('/selectAllGrupos', selectAllGrupos);
+Router.get('/selectGrupo/id=:id', selectGrupo);
+Router.post('/insertarGrupos', insertarGrupos);
 
 //RUTAS PARA LOS PERIODOS
 Router.get('/selectAllPeriodos', selectAllPeriodos);
@@ -30,6 +36,7 @@ Router.get('/selectNotaDocente/id=:id', selectNotaDocente);
 Router.get('/selectNotaAlumno/id=:id', selectNotaAlumno);
 Router.get('/selectNotaMateria/id=:id', selectNotaMateria);
 Router.put('/updateNotas', updateNota);
+Router.post('/insertarNotas', insertarNotas);
 
 //RUTAS PARA MATERIAS
 Router.get('/selectAllMaterias', selectAllMaterias);

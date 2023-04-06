@@ -200,4 +200,35 @@ export const dataTables = [
 
       ],
    },
+
+
+   {
+      titleTable: 'Tabla de grupos',
+      titleTableHead: [
+
+         {
+            name: '#',
+         },
+
+         {
+            name: 'ID Grupo',
+         },
+
+         {
+            name: 'ID Docente',
+         },
+
+         {
+            name: 'ID Materia',
+         },
+
+         {
+            name: 'Alumnos',
+         },
+
+         {
+            name: 'ID Periodo',
+         }
+      ],
+   },
 ];

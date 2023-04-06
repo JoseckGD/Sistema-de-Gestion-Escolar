@@ -49,6 +49,8 @@ export const ContextProvider = ({ children }) => {
 
   const [allPeriodos, setAllPeriodos] = useState(null);
 
+  const [allGrupos, setAllGrupos] = useState(null);
+
   useEffect(() => {
     if (url === "") return
 
@@ -99,6 +101,10 @@ export const ContextProvider = ({ children }) => {
 
             case 'selectAllDocentes':
               setAllDocentes(res.result);
+              break;
+
+            case 'selectAllGrupos':
+              setAllGrupos(res.result);
               break;
 
             default:
@@ -490,6 +496,7 @@ export const ContextProvider = ({ children }) => {
     allMaterias,
     allDocentes,
     allDocenteMaterias,
+    allGrupos,
     infoDocente,
     updateOneData,
     infoAlumno

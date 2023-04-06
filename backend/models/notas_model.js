@@ -90,9 +90,9 @@ module.exports = {
          });
       },
 
-      insertMateria: function (data) {
+      insertNota: function (data) {
          return new Promise((resolve, reject) => {
-            con.query(`INSERT INTO materias (idDocente, nombre) VALUES ( '${data.docente}', '${data.nombre}')`, (err, rows) => {
+            con.query(`INSERT INTO notas (idAlumno, idMateria, idDocente, parcial1, parcial2, parcial3) VALUES ( '${data.idAlumno}', '${data.idMateria}', '${data.idDocente}', 0,0,0)`, (err, rows) => {
                callback(err, rows, resolve, reject)
             })
          })

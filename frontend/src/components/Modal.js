@@ -1,6 +1,6 @@
 import { Modal, Button, Text, Input, Row, } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { initialFormAlumnoAdd, initialFormAlumnoModify, initialFormCalificacionModify, initialFormDocenteAdd, initialFormDocenteModify, initialFormMateriaAdd, initialFormMateriaModify, initialFormPeriodoAdd, initialFormPeriodoModify, initialFormUserAdd, initialFormUserModify, labelFormAlumnoAdd, labelFormAlumnoModify, labelFormCalificacionModify, labelFormDocenteAdd, labelFormDocenteModify, labelFormMateriaAdd, labelFormMateriaModify, labelFormPeriodoAdd, labelFormPeriodoModify, labelFormUserAdd, labelFormUserModify, typeInputForm_AlumnoAdd, typeInputForm_DocenteAdd, typeInputForm_UserAdd } from "../data/DataFormsModal";
+import { initialFormAlumnoAdd, initialFormAlumnoModify, initialFormCalificacionModify, initialFormDocenteAdd, initialFormDocenteModify, initialFormGrupoAdd, initialFormGrupoModify, initialFormMateriaAdd, initialFormMateriaModify, initialFormPeriodoAdd, initialFormPeriodoModify, initialFormUserAdd, initialFormUserModify, labelFormAlumnoAdd, labelFormAlumnoModify, labelFormCalificacionModify, labelFormDocenteAdd, labelFormDocenteModify, labelFormGrupoAdd, labelFormGrupoModify, labelFormMateriaAdd, labelFormMateriaModify, labelFormPeriodoAdd, labelFormPeriodoModify, labelFormUserAdd, labelFormUserModify, typeInputForm_AlumnoAdd, typeInputForm_DocenteAdd, typeInputForm_UserAdd } from "../data/DataFormsModal";
 import { InputSelect } from "./InputSelect";
 let isValidateEmail = true;
 export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, handleDelete, data, title, tipo }) => {
@@ -8,6 +8,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
    const validateForm = () => {
       // console.log(form);
       let isValidate = true;
+      // console.log(form);
       Object.values(form).map((input) => (
          input !== null &&
          (input.length === 0 || /^\s+$/.test(input)) && (isValidate = false)
@@ -34,14 +35,18 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
 
    const handleChange = (e) => {
       // console.log(e.target.name, e.target.value)
-
+      let valueString = e.target.value;
       if (e.target.name === 'correo') {
          isValidateEmail = validateEmail(e.target.value)
       }
 
+      if (valueString.charAt(0) === ',') {
+         valueString = valueString.substring(1);
+      }
+
       setForm({
          ...form,
-         [e.target.name]: e.target.value,
+         [e.target.name]: valueString,
       });
    };
 
@@ -70,6 +75,9 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
          case 'alumnos':
             return (tipo === 'Agregar' ? labelFormAlumnoAdd : labelFormAlumnoModify);
 
+         case 'grupos':
+            return (tipo === 'Agregar' ? labelFormGrupoAdd : labelFormGrupoModify);
+
          default: return null;
       }
    }
@@ -96,6 +104,9 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
          case 'alumnos':
             return (tipo === 'Agregar' ? initialFormAlumnoAdd : initialFormAlumnoModify);
 
+         case 'grupos':
+            return (tipo === 'Agregar' ? initialFormGrupoAdd : initialFormGrupoModify);
+
          default: return null;
       }
    }
@@ -121,6 +132,8 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
    useEffect(() => {
       if (tipo === 'Agregar' && data) {
          setForm(data)
+         console.log(data);
+
       } else {
          setForm(getInitialForm());
       }
@@ -129,6 +142,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
 
    useEffect(() => {
       if (tipo === 'Modificar') {
+         console.log(data);
          setForm(data)
       } else {
          if (tipo === 'Agregar' && !data) {
@@ -157,6 +171,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                   {title === 'materias' && (tipo === 'Agregar' ? 'Aregar una ' : `Modificar la ${title} `)}
                   {title === 'alumnos' && (tipo === 'Agregar' ? 'Aregar un ' : `Modificar un ${title} `)}
                   {title === 'docentes' && (tipo === 'Agregar' ? 'Aregar un ' : `Modificar un ${title} `)}
+                  {title === 'grupos' && (tipo === 'Agregar' ? 'Aregar un ' : `Modificar el ${title} `)}
                   <Text b size={24}>
                      {title === 'usuarios' && (tipo === 'Agregar' ? 'usuario' : ` ${data ? data.usuario : 'a'}`)}
                      {title === 'calificacion' && (tipo === 'Modificar' && `${data && data.nombreCompleto}`)}
@@ -164,6 +179,7 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                      {title === 'materias' && (tipo === 'Agregar' ? 'materia' : ` ${data ? data.nombre : 'a'}`)}
                      {title === 'alumnos' && (tipo === 'Agregar' ? 'alumno' : ` ${data ? data.nombreCompleto : 'a'}`)}
                      {title === 'docentes' && (tipo === 'Agregar' ? 'docente' : ` ${data ? data.nombreCompleto : 'a'}`)}
+                     {title === 'grupos' && (tipo === 'Agregar' ? 'grupo' : ` ${data ? data.idGrupo : 'a'}`)}
                   </Text>
                </Text>
             </Modal.Header>
@@ -272,28 +288,56 @@ export const MyModal = ({ visibleModal, handleAdd, handleClose, handleModify, ha
                            <InputSelect tipo='Periodo' handleChange={handleChange} />
                         </>
                      ) :
-                        Object.keys(getInitialForm()).map((campo, index) => (
-                           // Object.keys(initialFormUserAdd).map((campo, index) => (Object.keys(object1).length
-                           index < Object.keys(getInitialForm()).length - 1 &&
-                           // index < 5 &&
-                           <Input
-                              type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : getTypeInputForm()[index]}
-                              label={Object.keys(getLabel())[index]}
-                              // label={Object.keys(labelFormUserAdd)[index]}
-                              name={campo}
-                              // value={Object.values(form)[index] || ''}
-                              onChange={(e) => handleChange(e)}
-                              key={index}
-                              clearable
-                              status="primary"
-                              // bordered
-                              fullWidth
-                              color="primary"
-                              size="md"
-                              placeholder={Object.values(getLabel())[index]}
-                           // placeholder={Object.values(labelFormUserAdd)[index]}
-                           />
-                        )))
+                        title === 'grupos' ? (
+                           <>
+                              <Text h6 color="primary">Asignar un docente</Text>
+                              <InputSelect tipo='Docente' handleChange={handleChange} />
+                              <Text h6 color="primary">Asignar una materia</Text>
+                              <InputSelect tipo='Materia' handleChange={handleChange} />
+                              <Text h6 color="primary">Asignar un periodo</Text>
+                              <InputSelect tipo='Periodo' handleChange={handleChange} />
+                              <Text h6 color="primary">Asignar alumnos</Text>
+                              <InputSelect tipo='Alumno' handleChange={handleChange} />
+                              {/* <Input
+                                 type={'text'}
+                                 label={Object.keys(getLabel())[3]}
+                                 // label={Object.keys(labelFormUserAdd)[index]}
+                                 name={'nombre'}
+                                 value={form && form.alumnos}
+                                 onChange={(e) => handleChange(e)}
+                                 key={0}
+                                 clearable
+                                 status="primary"
+                                 fullWidth
+                                 color="primary"
+                                 size="md"
+                                 placeholder={Object.values(getLabel())[3]}
+                              /> */}
+                           </>
+                        ) :
+                           (Object.keys(getInitialForm()).map((campo, index) => (
+                              // Object.keys(initialFormUserAdd).map((campo, index) => (Object.keys(object1).length
+                              index < Object.keys(getInitialForm()).length - 1 &&
+                              // index < 5 &&
+                              <Input
+                                 type={title === 'periodos' ? (index > 0 ? 'date' : 'text') : getTypeInputForm()[index]}
+                                 label={Object.keys(getLabel())[index]}
+                                 // label={Object.keys(labelFormUserAdd)[index]}
+                                 name={campo}
+                                 // value={Object.values(form)[index] || ''}
+                                 onChange={(e) => handleChange(e)}
+                                 key={index}
+                                 clearable
+                                 status="primary"
+                                 // bordered
+                                 fullWidth
+                                 color="primary"
+                                 size="md"
+                                 placeholder={Object.values(getLabel())[index]}
+                              // placeholder={Object.values(labelFormUserAdd)[index]}
+                              />
+                           )))
+                  )
 
                )
                }

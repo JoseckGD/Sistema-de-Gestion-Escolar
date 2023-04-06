@@ -30,6 +30,7 @@ export const HomeAdminPage = () => {
    const [docentes, setDocentes] = useState(null);
    const [periodos, setPeriodos] = useState(null);
    const [materias, setMaterias] = useState(null);
+   const [grupos, setGrupos] = useState(null);
 
    const [dataToEdit, setDataToEdit] = useState(null);
 
@@ -38,6 +39,7 @@ export const HomeAdminPage = () => {
       allPeriodos,
       allUsuarios,
       allMaterias,
+      allGrupos,
       getData,
       allDocentes,
       createData,
@@ -82,10 +84,19 @@ export const HomeAdminPage = () => {
       }
    }, [allMaterias])
 
+   useEffect(() => {
+      if (allGrupos !== null) {
+         setGrupos(allGrupos);
+      }
+   }, [allGrupos])
+
    const handleOpenModal = (tipo, title, data) => {
       // console.log('data: ', data);
       // console.log(`tipo= ${tipo}, tittlr= ${title},  \ndata: ${data}`);
       if (data !== null) {
+         if (title === 'Tabla de materias') {
+            title = 'materias';
+         }
          setDataToEdit(data);
       } else {
          setDataToEdit(null);
@@ -171,6 +182,35 @@ export const HomeAdminPage = () => {
 
          case 'Materias':
             console.log(data);
+            createData(user, data);
+            handleClose();
+            break;
+
+         case 'Grupos':
+            matricula = Date.now().toString();
+            data.idGrupo = parseInt(matricula.substring(0, 10));
+
+            let miString = data.alumnos;
+            let miObjeto = {};
+            let valores = miString.split(", ");
+
+            for (let i = 0; i < valores.length; i++) {
+               miObjeto[i] = Number(valores[i]);
+               createData("Notas", ({
+                  'idAlumno': miObjeto[i],
+                  'idMateria': data.idMateria,
+                  'idDocente': data.idDocente,
+               }))
+            }
+            // console.log(miObjeto);
+
+            data.alumnos = miObjeto;
+            data.idDocente = Number(data.idDocente);
+            data.idMateria = Number(data.idMateria);
+            data.idPeriodo = Number(data.idPeriodo);
+
+            console.log(data);
+
             createData(user, data);
             handleClose();
             break;
@@ -273,6 +313,10 @@ export const HomeAdminPage = () => {
 
          case 'Alumnos':
             return alumnos;
+
+         case 'Grupos':
+            return grupos;
+
          default:
             return null;
       }

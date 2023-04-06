@@ -134,4 +134,21 @@ module.exports = {
             });
          })
    },
+
+   insertarNotas: (req, res) => {
+      console.log(req.body);
+      _model_notas.methods.insertNota(req.body)
+         .then(rows => {
+            res.send({
+               success: true,
+               message: 'Se han insertado una nota de un alumno'
+            })
+         })
+         .catch(err => {
+            res.send({
+               success: false,
+               message: 'Error al insertar la nota de un alumno'
+            });
+         })
+   },
 }

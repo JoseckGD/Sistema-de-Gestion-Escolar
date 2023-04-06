@@ -3,6 +3,7 @@ import { FiUser, FiUsers } from "react-icons/fi"
 import { GrUserAdmin } from "react-icons/gr";
 import { BsJournalBookmark } from "react-icons/bs"
 import { CgNotes } from "react-icons/cg"
+import { HiOutlineUserGroup } from "react-icons/hi";
 
 export const buttonsData = [
    {
@@ -40,6 +41,10 @@ export const buttonsDataAdmin = [
       titulo: 'Materias',
       icon: <BsJournalBookmark />,
    },
+   {
+      titulo: 'Grupos',
+      icon: <HiOutlineUserGroup />,
+   },
 ];
 
 
@@ -54,7 +59,7 @@ export const buttonsDataAlumno = [
    },
    {
       titulo: 'Generar Boleta',
-     
+
    },
 ];
 
